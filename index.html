@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aditya — Cooking & Robotics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FAF6EC;
+    --paper:#FFFDF8;
+    --ink:#2B2420;
+    --muted:#6b625a;
+    --gold:#C9971F;
+    --gold-deep:#8f6a13;
+    --yellow:#FFD23F;
+    --yellow-soft:#FFF3D3;
+    --yellow-deep:#E8A800;
+    --rule:#E4DBC6;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--cream);color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    font-size:16px;line-height:1.6;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    margin:0;
+    letter-spacing:-.01em;
+  }
+  code, .mono{font-family:'JetBrains Mono',monospace;}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 28px;}
+  a{color:inherit;}
+
+  /* ---- NAV ---- */
+  nav{
+    position:sticky;top:0;z-index:20;
+    background:rgba(250,246,236,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--rule);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 28px;max-width:1040px;margin:0 auto;
+  }
+  .brand{
+    font-family:'Fraunces';font-weight:500;font-size:1.1rem;
+    letter-spacing:.01em;
+  }
+  .navlinks{display:flex;gap:22px;font-size:.82rem;font-weight:500;color:var(--muted);flex-wrap:wrap;}
+  .navlinks a{text-decoration:none;}
+  .navlinks a:hover{color:var(--ink);}
+  .nav-contact{
+    background:var(--yellow);color:var(--ink);border:none;
+    font-family:'Inter';font-weight:700;font-size:.82rem;
+    padding:9px 18px;border-radius:999px;cursor:pointer;letter-spacing:.02em;
+    white-space:nowrap;
+  }
+  .nav-contact:hover{background:var(--yellow-deep);}
+
+  /* ---- HERO ---- */
+  .hero{
+    padding:88px 28px 70px;max-width:1040px;margin:0 auto;
+    display:grid;grid-template-columns:1.2fr .9fr;gap:50px;align-items:center;
+  }
+  .hero-photo{
+    width:100%;height:100%;border-radius:24px;overflow:hidden;
+    border:1.5px solid var(--rule);background:var(--yellow-soft);
+  }
+  .hero-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .eyebrow{
+    font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--gold-deep);display:inline-block;margin-bottom:20px;
+    background:var(--yellow-soft);border-radius:999px;padding:7px 16px;
+  }
+  .hero h1{
+    font-size:clamp(2.1rem,4.4vw,3.1rem);line-height:1.14;font-weight:500;
+  }
+  .hero p.sub{
+    margin-top:22px;font-size:1.06rem;color:var(--muted);max-width:560px;line-height:1.65;
+  }
+  .throughline{
+    margin-top:22px;padding:18px 20px;background:var(--yellow-soft);
+    border-radius:16px;border-left:4px solid var(--yellow-deep);
+  }
+  .throughline p{margin:0;font-size:.95rem;color:var(--ink);font-weight:500;line-height:1.55;}
+  .hero-stats{
+    display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;
+  }
+  .stat{
+    background:var(--yellow-soft);border:1.5px solid var(--yellow);
+    border-radius:20px;padding:16px 22px;
+  }
+  .stat .num{
+    font-family:'Fraunces';font-size:1.8rem;font-weight:500;color:var(--ink);
+    display:block;
+  }
+  .stat .label{font-size:.78rem;color:var(--muted);margin-top:2px;}
+
+  section{padding:70px 28px;max-width:1040px;margin:0 auto;}
+  .section-rule{border-top:1px solid var(--rule);}
+  .kicker{
+    font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--gold-deep);display:inline-block;margin-bottom:16px;
+    background:var(--yellow-soft);border-radius:999px;padding:6px 14px;
+  }
+  .section-title{font-size:1.8rem;font-weight:500;margin-bottom:10px;max-width:640px;}
+  .section-intro{font-size:.98rem;color:var(--muted);max-width:620px;margin-bottom:36px;}
+
+  /* ---- SWIPE TIMELINE ---- */
+  .swipe-hint{
+    display:flex;align-items:center;gap:8px;
+    font-size:.85rem;color:var(--gold-deep);font-weight:600;
+    margin:8px 0 16px;
+  }
+  .swipe-hint svg{width:18px;height:18px;}
+  .swipe-timeline{
+    display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:4px 4px 18px;margin:0 -4px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;scrollbar-color:var(--yellow) transparent;
+  }
+  .swipe-timeline::-webkit-scrollbar{height:8px;}
+  .swipe-timeline::-webkit-scrollbar-thumb{background:var(--yellow);border-radius:999px;}
+  .swipe-timeline::-webkit-scrollbar-track{background:transparent;}
+  .tl-card{
+    flex:0 0 240px;scroll-snap-align:start;
+    background:var(--paper);border:1.5px solid var(--rule);border-radius:20px;
+    overflow:hidden;
+  }
+  .tl-card .tl-photo{width:100%;aspect-ratio:4/5;background:var(--yellow-soft);}
+  .tl-card .tl-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .tl-card-body{padding:16px 18px 20px;}
+  .tl-year{
+    font-family:'Fraunces';font-size:1.05rem;color:var(--gold-deep);
+    display:inline-block;margin-bottom:6px;
+    background:var(--yellow-soft);border-radius:999px;padding:4px 12px;
+  }
+  .tl-copy{font-size:.88rem;color:var(--muted);line-height:1.5;}
+  .timeline-nav{display:flex;gap:10px;margin-top:6px;}
+  .tl-arrow{
+    width:38px;height:38px;border-radius:50%;border:1.5px solid var(--rule);
+    background:var(--paper);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  }
+  .tl-arrow:hover{background:var(--yellow-soft);border-color:var(--yellow);}
+  .tl-arrow svg{width:16px;height:16px;}
+
+  /* ---- MILESTONES ---- */
+  .milestone-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;
+  }
+  .milestone{
+    background:var(--paper);border:1.5px solid var(--rule);border-radius:16px;
+    padding:20px 20px;
+  }
+  .milestone .m-tag{
+    font-size:.72rem;font-weight:700;color:var(--gold-deep);text-transform:uppercase;
+    letter-spacing:.06em;
+  }
+  .milestone h4{font-family:'Fraunces';font-size:1.05rem;font-weight:500;margin:6px 0 6px;}
+  .milestone p{font-size:.85rem;color:var(--muted);margin:0;line-height:1.5;}
+
+  /* ---- PROJECT CARDS (robotics) ---- */
+  .project-list{display:flex;flex-direction:column;gap:24px;}
+  .project-card{
+    display:grid;grid-template-columns:280px 1fr;gap:0;
+    background:var(--paper);border:1.5px solid var(--rule);border-radius:20px;
+    overflow:hidden;
+  }
+  .project-photo{background:var(--yellow-soft);min-height:220px;}
+  .project-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .project-body{padding:26px 28px;}
+  .project-tag{
+    font-size:.72rem;font-weight:700;color:var(--gold-deep);text-transform:uppercase;
+    letter-spacing:.06em;background:var(--yellow-soft);border-radius:999px;
+    padding:4px 12px;display:inline-block;margin-bottom:10px;
+  }
+  .project-body h3{font-size:1.25rem;margin-bottom:8px;}
+  .project-body p{font-size:.92rem;color:var(--muted);margin:0 0 12px;line-height:1.55;}
+  .problem-solved{
+    font-size:.85rem;margin:12px 0;padding:12px 14px;background:var(--cream);
+    border-radius:12px;border-left:3px solid var(--yellow-deep);
+  }
+  .problem-solved strong{color:var(--gold-deep);}
+  .code-block{
+    background:var(--ink);color:#F5E9C8;border-radius:12px;padding:16px 18px;
+    font-size:.8rem;overflow-x:auto;margin-top:14px;line-height:1.6;
+  }
+  .code-block .cm{color:#9a8c72;}
+
+  /* ---- OVERLAP FEATURE ---- */
+  .overlap-band{
+    background:var(--ink);color:var(--paper);border-radius:28px;
+    max-width:1040px;margin:0 auto;padding:56px 44px;
+  }
+  .overlap-band .kicker{background:var(--yellow);color:var(--ink);}
+  .overlap-band h2{color:var(--paper);font-size:1.9rem;margin-bottom:16px;max-width:600px;}
+  .overlap-band p{color:#d8cdb4;font-size:1rem;max-width:600px;line-height:1.65;margin:0 0 24px;}
+  .overlap-examples{
+    display:flex;flex-wrap:wrap;gap:10px;
+  }
+  .overlap-chip{
+    background:#3d3128;border:1px solid #574a3c;color:#e8dcc4;
+    border-radius:999px;padding:8px 16px;font-size:.85rem;
+  }
+  .overlap-photo{
+    margin-top:32px;border-radius:18px;overflow:hidden;aspect-ratio:16/8;background:#3d3128;
+  }
+  .overlap-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* ---- BLOG / DEVLOG ---- */
+  .blog-list{display:flex;flex-direction:column;}
+  .blog-row{
+    display:grid;grid-template-columns:90px 1fr;gap:22px;
+    padding:22px 0;border-top:1px solid var(--rule);align-items:center;
+  }
+  .blog-row:last-child{border-bottom:1px solid var(--rule);}
+  .blog-thumb{width:90px;height:90px;border-radius:14px;overflow:hidden;background:var(--yellow-soft);}
+  .blog-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .blog-date{
+    font-size:.78rem;color:var(--gold-deep);font-weight:700;margin-bottom:4px;
+    text-transform:uppercase;letter-spacing:.05em;
+  }
+  .blog-title{font-family:'Fraunces';font-size:1.1rem;font-weight:500;margin-bottom:4px;}
+  .blog-excerpt{font-size:.9rem;color:var(--muted);}
+
+  /* ---- RECIPES ---- */
+  .recipe-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+  }
+  .recipe-card{
+    background:var(--paper);border:1.5px solid var(--rule);border-radius:18px;overflow:hidden;
+  }
+  .recipe-photo{width:100%;aspect-ratio:4/3;background:var(--yellow-soft);}
+  .recipe-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .recipe-body{padding:18px 20px 22px;}
+  .recipe-tag{
+    font-size:.72rem;font-weight:700;color:var(--gold-deep);text-transform:uppercase;
+    letter-spacing:.06em;
+  }
+  .recipe-card h4{font-family:'Fraunces';font-size:1.1rem;font-weight:500;margin:6px 0 6px;}
+  .recipe-card p{font-size:.86rem;color:var(--muted);margin:0;line-height:1.5;}
+
+  /* ---- CONTACT ---- */
+  .contact-band{
+    background:var(--yellow);color:var(--ink);border-radius:32px;
+    max-width:1040px;margin:0 auto 60px;
+  }
+  .contact-inner{max-width:1040px;margin:0 auto;padding:64px 28px;text-align:center;}
+  .contact-inner .kicker{color:var(--gold-deep);}
+  .contact-inner h2{color:var(--ink);font-size:1.9rem;margin-bottom:14px;}
+  .contact-inner p{color:#5c4a12;max-width:480px;margin:0 auto 30px;font-size:1rem;}
+  .email-link{
+    display:inline-block;font-family:'Fraunces';font-size:1.1rem;font-weight:500;
+    color:var(--ink);text-decoration:none;background:var(--paper);
+    border-radius:999px;padding:14px 30px;border:1.5px solid var(--ink);
+  }
+  .email-link:hover{background:var(--ink);color:var(--yellow);}
+
+  footer{
+    padding:28px 28px;text-align:center;font-size:.82rem;color:var(--muted);background:var(--cream);
+  }
+
+  @media (max-width:760px){
+    .navlinks{display:none;}
+    .hero{grid-template-columns:1fr;}
+    .hero-photo{max-width:280px;margin:0 auto;}
+    .milestone-grid{grid-template-columns:1fr;}
+    .project-card{grid-template-columns:1fr;}
+    .project-photo{min-height:180px;}
+    .recipe-grid{grid-template-columns:1fr 1fr;}
+    .overlap-band{padding:40px 24px;}
+    .blog-row{grid-template-columns:64px 1fr;}
+    .blog-thumb{width:64px;height:64px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">Aditya</div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#cooking">Cooking Journey</a>
+      <a href="#robotics">Robotics</a>
+      <a href="#overlap">Overlap Project</a>
+      <a href="#blog">Devlog</a>
+      <a href="#recipes">Recipes</a>
+    </div>
+    <button class="nav-contact" onclick="document.getElementById('contact').scrollIntoView()">Contact Me</button>
+  </div>
+</nav>
+
+<!-- ===== HOME / ABOUT ===== -->
+<header class="hero" id="about">
+  <div>
+    <span class="eyebrow">Cook · Builder · Age 14</span>
+    <h1>I've been cooking since I was three, and building robots more recently — here's how I think about both.</h1>
+    <p class="sub">Two different worlds that turn out to run on the same instincts: try something, see what happens, adjust, try again.</p>
+    <div class="throughline">
+      <p>Precision, iteration, and creativity are the throughline. A recipe and a robot are both systems you refine over and over until they work exactly right — one measured in grams and minutes, the other in code and circuits.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="num">11 yrs</span>
+        <span class="label">Cooking since age 3</span>
+      </div>
+      <div class="stat">
+        <span class="num">250+</span>
+        <span class="label">People served at events</span>
+      </div>
+      <div class="stat">
+        <span class="num">14</span>
+        <span class="label">Current age</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-photo">
+    <img src="./images/Aditya/Greetings.png" alt="Aditya">
+  </div>
+</header>
+
+<!-- ===== COOKING JOURNEY ===== -->
+<section id="cooking" class="section-rule">
+  <span class="kicker">Cooking Journey</span>
+  <h2 class="section-title">From age 3 to now</h2>
+  <p class="section-intro">A visual log of how my cooking has grown over the years — dishes, techniques, and the events along the way. This is the long-term thread, not something I picked up recently.</p>
+
+  <div class="swipe-hint">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    Swipe to see where I started and where I am now
+  </div>
+
+  <div class="swipe-timeline" id="timeline">
+    <div class="tl-card">
+      <div class="tl-photo"><img src="./images/Aditya/3yearold.png" alt="Aditya at age 3"></div>
+      <div class="tl-card-body">
+        <span class="tl-year">Age 3</span>
+        <p class="tl-copy">First started cooking alongside family in the kitchen.</p>
+      </div>
+    </div>
+    <div class="tl-card">
+      <div class="tl-photo"><img src="./images/Aditya/6yearold.png" alt="Aditya cooking as a kid"></div>
+      <div class="tl-card-body">
+        <span class="tl-year">Age 7</span>
+        <p class="tl-copy">Started baking on my own — cookies and simple recipes first.</p>
+      </div>
+    </div>
+    <div class="tl-card">
+      <div class="tl-photo"><img src="./images/Aditya/11yearold.png" alt="Aditya developing recipes"></div>
+      <div class="tl-card-body">
+        <span class="tl-year">Age 11</span>
+        <p class="tl-copy">Began developing my own recipes and trying new cuisines.</p>
+      </div>
+    </div>
+    <div class="tl-card">
+      <div class="tl-photo"><img src="./images/Aditya/firstevent.png" alt="Aditya at a food event"></div>
+      <div class="tl-card-body">
+        <span class="tl-year">First event</span>
+        <p class="tl-copy">Cooked for a group setting for the first time.</p>
+      </div>
+    </div>
+    <div class="tl-card">
+      <div class="tl-photo"><img src="./images/Aditya/Today.png" alt="Aditya today"></div>
+      <div class="tl-card-body">
+        <span class="tl-year">Today</span>
+        <p class="tl-copy">14 years old, 150+ people served across events, still going.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-nav">
+    <button class="tl-arrow" onclick="document.getElementById('timeline').scrollBy({left:-260,behavior:'smooth'})" aria-label="Previous">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="tl-arrow" onclick="document.getElementById('timeline').scrollBy({left:260,behavior:'smooth'})" aria-label="Next">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
+
+  <div class="milestone-grid">
+    <div class="milestone">
+      <span class="m-tag">Kitchen Milestone</span>
+      <h4>[Dish name]</h4>
+      <p>[Describe the dish and what made it a milestone — a technique you mastered, a first, a challenge you solved.]</p>
+    </div>
+    <div class="milestone">
+      <span class="m-tag">Kitchen Milestone</span>
+      <h4>[Dish name]</h4>
+      <p>[Describe the dish and what made it a milestone — a technique you mastered, a first, a challenge you solved.]</p>
+    </div>
+    <div class="milestone">
+      <span class="m-tag">Kitchen Milestone</span>
+      <h4>[Dish name]</h4>
+      <p>[Describe the dish and what made it a milestone — a technique you mastered, a first, a challenge you solved.]</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ROBOTICS PROJECTS ===== -->
+<section id="robotics" class="section-rule">
+  <span class="kicker">Robotics Projects</span>
+  <h2 class="section-title">Builds & competitions</h2>
+  <p class="section-intro">Write-ups of what I've built — even small projects count when they're explained well. Each one includes what it does, the problem it solved, and a bit of the code behind it.</p>
+
+  <div class="project-list">
+    <div class="project-card">
+      <div class="project-photo"><img src="https://placehold.co/500x400/FFD23F/2B2420?text=Project+Photo" alt="Robotics project"></div>
+      <div class="project-body">
+        <span class="project-tag">[Competition or Personal Build]</span>
+        <h3>[Project Name]</h3>
+        <p>[One or two sentences on what the project is and why you built it.]</p>
+        <div class="problem-solved"><strong>Problem solved:</strong> [What real problem or challenge this build addressed.]</div>
+        <div class="code-block"><span class="cm">// a short, representative snippet from the build</span><br>void setup() {<br>&nbsp;&nbsp;// your code here<br>}</div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-photo"><img src="https://placehold.co/500x400/FFDB6B/2B2420?text=Project+Photo" alt="Robotics project"></div>
+      <div class="project-body">
+        <span class="project-tag">[Competition or Personal Build]</span>
+        <h3>[Project Name]</h3>
+        <p>[One or two sentences on what the project is and why you built it.]</p>
+        <div class="problem-solved"><strong>Problem solved:</strong> [What real problem or challenge this build addressed.]</div>
+        <div class="code-block"><span class="cm">// a short, representative snippet from the build</span><br>void loop() {<br>&nbsp;&nbsp;// your code here<br>}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== THE OVERLAP PROJECT ===== -->
+<section id="overlap" class="section-rule">
+  <div class="overlap-band">
+    <span class="kicker">Featured</span>
+    <h2>The Overlap Project</h2>
+    <p>Something that combines cooking and robotics directly — this is the centerpiece. It doesn't need to be complicated: a simple Arduino-based kitchen gadget with a devlog showing how it came together can stand out more than a single polished build.</p>
+    <div class="overlap-examples">
+      <span class="overlap-chip">Pancake-flipping robot</span>
+      <span class="overlap-chip">Automated ingredient sorter</span>
+      <span class="overlap-chip">Sous-vide temperature monitor</span>
+      <span class="overlap-chip">Automatic spice dispenser</span>
+    </div>
+    <div class="overlap-photo">
+      <img src="https://placehold.co/1000x500/3D3128/FFD23F?text=Your+Overlap+Project+Here" alt="Overlap project">
+    </div>
+  </div>
+</section>
+
+<!-- ===== BLOG / DEVLOG ===== -->
+<section id="blog" class="section-rule">
+  <span class="kicker">Blog / Devlog</span>
+  <h2 class="section-title">Ongoing log</h2>
+  <p class="section-intro">Posts as I build — in the kitchen and in robotics. Consistency over time matters more here than any single polished post.</p>
+  <div class="blog-list">
+    <div class="blog-row">
+      <div class="blog-thumb"><img src="https://placehold.co/200x200/FFD23F/2B2420?text=Post" alt="Devlog post"></div>
+      <div>
+        <div class="blog-date">[Month Year]</div>
+        <div class="blog-title">[Post title]</div>
+        <div class="blog-excerpt">[Short excerpt of what this update covers.]</div>
+      </div>
+    </div>
+    <div class="blog-row">
+      <div class="blog-thumb"><img src="https://placehold.co/200x200/FFDB6B/2B2420?text=Post" alt="Devlog post"></div>
+      <div>
+        <div class="blog-date">[Month Year]</div>
+        <div class="blog-title">[Post title]</div>
+        <div class="blog-excerpt">[Short excerpt of what this update covers.]</div>
+      </div>
+    </div>
+    <div class="blog-row">
+      <div class="blog-thumb"><img src="https://placehold.co/200x200/E8A800/FFFDF8?text=Post" alt="Devlog post"></div>
+      <div>
+        <div class="blog-date">[Month Year]</div>
+        <div class="blog-title">[Post title]</div>
+        <div class="blog-excerpt">[Short excerpt of what this update covers.]</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RECIPES ===== -->
+<section id="recipes" class="section-rule">
+  <span class="kicker">Recipes</span>
+  <h2 class="section-title">Original recipes</h2>
+  <p class="section-intro">Recipes I've developed myself, especially ones that show experimentation — testing, adjusting, and refining, the same R&D mindset that goes into a robotics build.</p>
+  <div class="recipe-grid">
+    <div class="recipe-card">
+      <div class="recipe-photo"><img src="https://placehold.co/400x300/FFD23F/2B2420?text=Recipe" alt="Original recipe"></div>
+      <div class="recipe-body">
+        <span class="recipe-tag">Original</span>
+        <h4>[Recipe name]</h4>
+        <p>[Short note on what makes this one yours — an experiment, a twist, an iteration.]</p>
+      </div>
+    </div>
+    <div class="recipe-card">
+      <div class="recipe-photo"><img src="https://placehold.co/400x300/FFE9A8/2B2420?text=Recipe" alt="Original recipe"></div>
+      <div class="recipe-body">
+        <span class="recipe-tag">Original</span>
+        <h4>[Recipe name]</h4>
+        <p>[Short note on what makes this one yours — an experiment, a twist, an iteration.]</p>
+      </div>
+    </div>
+    <div class="recipe-card">
+      <div class="recipe-photo"><img src="https://placehold.co/400x300/E8A800/FFFDF8?text=Recipe" alt="Original recipe"></div>
+      <div class="recipe-body">
+        <span class="recipe-tag">Original</span>
+        <h4>[Recipe name]</h4>
+        <p>[Short note on what makes this one yours — an experiment, a twist, an iteration.]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="contact-band" id="contact">
+  <div class="contact-inner">
+    <span class="kicker">Get in touch</span>
+    <h2>Contact me</h2>
+    <p>For questions, collaborations, or anything else — reach out by email.</p>
+    <a class="email-link" href="mailto:singha01auscstudents.org@gmail.com">singha01auscstudents.org@gmail.com</a>
+  </div>
+</div>
+
+<footer>
+  Aditya · Contact: <a href="mailto:singha01auscstudents.org@gmail.com">singha01auscstudents.org@gmail.com</a>
+</footer>
+
+</body>
+</html>
