@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aditya — Cooking & Robotics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FAF6EC;
+    --paper:#FFFDF8;
+    --ink:#2B2420;
+    --muted:#6b625a;
+    --gold:#C9971F;
+    --gold-deep:#8f6a13;
+    --yellow:#FFD23F;
+    --yellow-soft:#FFF3D3;
+    --yellow-deep:#E8A800;
+    --rule:#E4DBC6;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--cream);color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    font-size:16px;line-height:1.6;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    margin:0;
+    letter-spacing:-.01em;
+  }
+  code, .mono{font-family:'JetBrains Mono',monospace;}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 28px;}
+  a{color:inherit;}
+
+  /* ---- NAV ---- */
+  nav{
+    position:sticky;top: -80px;;z-index:20;
+    background:rgba(250,246,236,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--rule);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:-70px -70px;max-width:1040px;margin:-70px auto;
+  }
+  .brand{
+    font-family:'Fraunces';font-weight:500;font-size:1.1rem;
+    letter-spacing:.01em;
+    display:flex;align-items:center;
+  }
+  .brand img{
+    display:block;
+    height: 250px;
+    width:auto;
+    margin:0;
+  }
+
+  .navlinks{display:flex;gap:22px;font-size:.82rem;font-weight:500;color:var(--muted);flex-wrap:wrap;}
+  .navlinks a{text-decoration:none;}
+  .navlinks a:hover{color:var(--ink);}
+  .nav-contact{
+    background:var(--yellow);color:var(--ink);border:none;
+    font-family:'Inter';font-weight:700;font-size:.82rem;
+    padding:9px 18px;border-radius:999px;cursor:pointer;letter-spacing:.02em;
+    white-space:nowrap;
+  }
+  .nav-contact:hover{background:var(--yellow-deep);}
+
+  /* ---- HERO ---- */
+  .hero{
+    padding:88px 28px 70px;max-width:1040px;margin:0 auto;
+    display:grid;grid-template-columns:1.2fr .9fr;gap:50px;align-items:center;
+  }
+  .hero-photo{
+    width:80%;height:80%;border-radius:24px;overflow:hidden;
+    border:1.5px solid var(--rule);background:var(--yellow-soft);
+  }
+  .hero-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .eyebrow{
+    font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--gold-deep);display:inline-block;margin-bottom:20px;
+    background:var(--yellow-soft);border-radius:999px;padding:7px 16px;
+  }
+  .hero h1{
+    font-size:clamp(2.1rem,4.4vw,3.1rem);line-height:1.14;font-weight:500;
+  }
+  .hero p.sub{
+    margin-top:22px;font-size:1.06rem;color:var(--muted);max-width:560px;line-height:1.65;
+  }
+  .throughline{
+    margin-top:22px;padding:18px 20px;background:var(--yellow-soft);
+    border-radius:16px;border-left:4px solid var(--yellow-deep);
+  }
+  .throughline p{margin:0;font-size:.95rem;color:var(--ink);font-weight:500;line-height:1.55;}
+  .hero-stats{
+    display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;
+  }
+  .stat{
+    background:var(--yellow-soft);border:1.5px solid var(--yellow);
+    border-radius:20px;padding:16px 22px;
+  }
+  .stat .num{
+    font-family:'Fraunces';font-size:1.8rem;font-weight:500;color:var(--ink);
+    display:block;
+  }
+  .stat .label{font-size:.78rem;color:var(--muted);margin-top:2px;}
+
+  section{padding:70px 28px;max-width:1040px;margin:0 auto;}
+  .section-rule{border-top:1px solid var(--rule);}
+  .kicker{
+    font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--gold-deep);display:inline-block;margin-bottom:16px;
+    background:var(--yellow-soft);border-radius:999px;padding:6px 14px;
+  }
+  .section-title{font-size:1.8rem;font-weight:500;margin-bottom:10px;max-width:640px;}
+  .section-intro{font-size:.98rem;color:var(--muted);max-width:620px;margin-bottom:36px;}
+
+  /* ---- GROWING UP CLOTHESLINE ---- */
+  .cl-scene{
+    position:relative;
+    width:100%;
+    height:640px;
+    overflow-x:auto;
+    overflow-y:visible;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;scrollbar-color:var(--yellow) transparent;
+  }
+  .cl-scene::-webkit-scrollbar{height:8px;}
+  .cl-scene::-webkit-scrollbar-thumb{background:var(--yellow);border-radius:999px;}
+  .cl-scene::-webkit-scrollbar-track{background:transparent;}
+  .cl-line{
+    position:absolute;
+    top:0;left:0;
+    pointer-events:none;
+  }
+  .age-swing{
+    position:absolute;
+    transform-origin:top center;
+    animation:cl-sway linear infinite alternate;
+  }
+  .cl-peg{
+    position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+    width:9px;height:24px;background:var(--yellow-deep);border-radius:3px;z-index:3;
+  }
+  .cl-card{
+    width:220px;
+    background:var(--paper);border:1.5px solid var(--rule);border-radius:20px;
+    overflow:hidden;
+    box-shadow:3px 4px 0 rgba(232,168,0,.1);
+  }
+  .cl-card .cl-photo{width:100%;aspect-ratio:4/5;background:var(--yellow-soft);}
+  .cl-card .cl-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .cl-card-body{padding:16px 18px 20px;}
+  @keyframes cl-sway{
+    from{ transform:rotate(var(--cl-a1)); }
+    to{ transform:rotate(var(--cl-a2)); }
+  }
+
+  /* ---- EVENTS GALLERY ---- */
+  .events-wave-wrap{
+    position:relative;
+    overflow:hidden;
+    border-radius:28px;
+    background:var(--cream);
+    border:1.5px solid var(--rule);
+    box-shadow:inset 0 0 50px rgba(43,36,32,.04);
+    padding:32px 24px 24px;
+    min-height:460px;
+  }
+  .events-wave-bg{
+    position:absolute;
+    top:0;left:0;
+    width:100%;height:100%;
+    z-index:0;
+    pointer-events:none;
+  }
+  .wave-layer{
+    position:absolute;
+    top:0;left:0;
+    height:100%;
+    animation:wave-drift linear infinite;
+  }
+  @keyframes wave-drift{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+  .events-groups{position:relative;z-index:1;display:flex;flex-direction:column;gap:56px;padding:20px 4px 8px;}
+  .event-group-header{margin-bottom:22px;}
+  .event-title{font-size:1.3rem;font-weight:500;}
+  .event-subtitle{font-size:.82rem;color:var(--gold-deep);font-weight:600;margin-top:4px;}
+  .event-row{display:flex;gap:26px;flex-wrap:wrap;align-items:flex-start;justify-content:center;}
+  .event-item{
+    cursor:pointer;border:none;background:none;padding:0;
+    display:flex;flex-direction:column;align-items:center;
+    font-family:'Inter';width:140px;
+  }
+  .event-photo,.event-bubble{
+    width:140px;height:140px;background:var(--yellow-soft);
+    border:2px solid var(--rule);overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    transition:border-color .15s ease,box-shadow .15s ease;
+  }
+  .event-photo{border-radius:20px;}
+  .event-bubble{border-radius:50%;}
+  .event-photo img,.event-bubble img{width:100%;height:100%;object-fit:cover;display:block;}
+  .event-item .event-label{
+    margin-top:10px;font-size:.85rem;font-weight:600;color:var(--muted);text-align:center;
+  }
+  .event-item:hover .event-photo,.event-item:hover .event-bubble{border-color:var(--yellow);}
+  .event-item.active .event-photo,.event-item.active .event-bubble{
+    border-color:var(--yellow-deep);box-shadow:0 0 0 4px var(--yellow-soft);
+  }
+  .event-story{
+    margin-top:22px;background:var(--paper);border:1.5px solid var(--rule);
+    border-radius:20px;padding:26px 28px;display:none;
+  }
+  .event-story.open{display:block;}
+  .event-story h4{font-size:1.15rem;margin-bottom:10px;}
+  .event-story p{font-size:.92rem;color:var(--muted);line-height:1.6;margin:0;}
+
+  /* ---- SWIPE TIMELINE ---- */
+  .swipe-hint{
+    display:flex;align-items:center;gap:8px;
+    font-size:.85rem;color:var(--gold-deep);font-weight:600;
+    margin:8px 0 16px;
+  }
+  .swipe-hint svg{width:18px;height:18px;}
+  .swipe-timeline{
+    display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:4px 4px 18px;margin:0 -4px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;scrollbar-color:var(--yellow) transparent;
+  }
+  .swipe-timeline::-webkit-scrollbar{height:8px;}
+  .swipe-timeline::-webkit-scrollbar-thumb{background:var(--yellow);border-radius:999px;}
+  .swipe-timeline::-webkit-scrollbar-track{background:transparent;}
+  .tl-card{
+    flex:0 0 240px;scroll-snap-align:start;
+    background:var(--paper);border:1.5px solid var(--rule);border-radius:20px;
+    overflow:hidden;
+  }
+  .tl-card .tl-photo{width:100%;aspect-ratio:4/5;background:var(--yellow-soft);}
+  .tl-card .tl-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .tl-card-body{padding:16px 18px 20px;}
+  .tl-year{
+    font-family:'Fraunces';font-size:1.05rem;color:var(--gold-deep);
+    display:inline-block;margin-bottom:6px;
+    background:var(--yellow-soft);border-radius:999px;padding:4px 12px;
+  }
+  .tl-copy{font-size:.88rem;color:var(--muted);line-height:1.5;}
+  .timeline-nav{display:flex;gap:10px;margin-top:6px;}
+  .tl-arrow{
+    width:38px;height:38px;border-radius:50%;border:1.5px solid var(--rule);
+    background:var(--paper);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  }
+  .tl-arrow:hover{background:var(--yellow-soft);border-color:var(--yellow);}
+  .tl-arrow svg{width:16px;height:16px;}
+
+  /* ---- MILESTONES ---- */
+  .milestone-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;
+  }
+  .milestone{
+    background:var(--paper);border:1.5px solid var(--rule);border-radius:16px;
+    padding:20px 20px;
+  }
+  .milestone .m-tag{
+    font-size:.72rem;font-weight:700;color:var(--gold-deep);text-transform:uppercase;
+    letter-spacing:.06em;
+  }
+  .milestone h4{font-family:'Fraunces';font-size:1.05rem;font-weight:500;margin:6px 0 6px;}
+  .milestone p{font-size:.85rem;color:var(--muted);margin:0;line-height:1.5;}
+
+  /* ---- PROJECT CARDS (robotics) ---- */
+  .project-list{display:flex;flex-direction:column;gap:24px;}
+  .project-card{
+    display:grid;grid-template-columns:280px 1fr;gap:0;
+    background:var(--paper);border:1.5px solid var(--rule);border-radius:20px;
+    overflow:hidden;
+  }
+  .project-photo{background:var(--yellow-soft);min-height:220px;}
+  .project-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .project-body{padding:26px 28px;}
+  .project-tag{
+    font-size:.72rem;font-weight:700;color:var(--gold-deep);text-transform:uppercase;
+    letter-spacing:.06em;background:var(--yellow-soft);border-radius:999px;
+    padding:4px 12px;display:inline-block;margin-bottom:10px;
+  }
+  .project-body h3{font-size:1.25rem;margin-bottom:8px;}
+  .project-body p{font-size:.92rem;color:var(--muted);margin:0 0 12px;line-height:1.55;}
+  .problem-solved{
+    font-size:.85rem;margin:12px 0;padding:12px 14px;background:var(--cream);
+    border-radius:12px;border-left:3px solid var(--yellow-deep);
+  }
+  .problem-solved strong{color:var(--gold-deep);}
+  .code-block{
+    background:var(--ink);color:#F5E9C8;border-radius:12px;padding:16px 18px;
+    font-size:.8rem;overflow-x:auto;margin-top:14px;line-height:1.6;
+  }
+  .code-block .cm{color:#9a8c72;}
+
+  /* ---- OVERLAP FEATURE ---- */
+  .overlap-band{
+    background:var(--ink);color:var(--paper);border-radius:28px;
+    max-width:1040px;margin:0 auto;padding:56px 44px;
+  }
+  .overlap-band .kicker{background:var(--yellow);color:var(--ink);}
+  .overlap-band h2{color:var(--paper);font-size:1.9rem;margin-bottom:16px;max-width:600px;}
+  .overlap-band p{color:#d8cdb4;font-size:1rem;max-width:600px;line-height:1.65;margin:0 0 24px;}
+  .overlap-examples{
+    display:flex;flex-wrap:wrap;gap:10px;
+  }
+  .overlap-chip{
+    background:#3d3128;border:1px solid #574a3c;color:#e8dcc4;
+    border-radius:999px;padding:8px 16px;font-size:.85rem;
+  }
+  .overlap-photo{
+    margin-top:32px;border-radius:18px;overflow:hidden;aspect-ratio:16/8;background:#3d3128;
+  }
+  .overlap-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* ---- BLOG / DEVLOG ---- */
+  .blog-list{display:flex;flex-direction:column;}
+  .blog-row{
+    display:grid;grid-template-columns:90px 1fr;gap:22px;
+    padding:22px 0;border-top:1px solid var(--rule);align-items:center;
+  }
+  .blog-row:last-child{border-bottom:1px solid var(--rule);}
+  .blog-thumb{width:90px;height:90px;border-radius:14px;overflow:hidden;background:var(--yellow-soft);}
+  .blog-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .blog-date{
+    font-size:.78rem;color:var(--gold-deep);font-weight:700;margin-bottom:4px;
+    text-transform:uppercase;letter-spacing:.05em;
+  }
+  .blog-title{font-family:'Fraunces';font-size:1.1rem;font-weight:500;margin-bottom:4px;}
+  .blog-excerpt{font-size:.9rem;color:var(--muted);}
+
+  /* ---- RECIPES ---- */
+  .recipe-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+  }
+  .recipe-card{
+    background:var(--paper);border:1.5px solid var(--rule);border-radius:18px;overflow:hidden;
+  }
+  .recipe-photo{width:100%;aspect-ratio:4/3;background:var(--yellow-soft);}
+  .recipe-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .recipe-body{padding:18px 20px 22px;}
+  .recipe-tag{
+    font-size:.72rem;font-weight:700;color:var(--gold-deep);text-transform:uppercase;
+    letter-spacing:.06em;
+  }
+  .recipe-card h4{font-family:'Fraunces';font-size:1.1rem;font-weight:500;margin:6px 0 6px;}
+  .recipe-card p{font-size:.86rem;color:var(--muted);margin:0;line-height:1.5;}
+
+  /* ---- CONTACT ---- */
+  .contact-band{
+    background:var(--yellow);color:var(--ink);border-radius:32px;
+    max-width:1040px;margin:0 auto 60px;
+  }
+  .contact-inner{max-width:1040px;margin:0 auto;padding:64px 28px;text-align:center;}
+  .contact-inner .kicker{color:var(--gold-deep);}
+  .contact-inner h2{color:var(--ink);font-size:1.9rem;margin-bottom:14px;}
+  .contact-inner p{color:#5c4a12;max-width:480px;margin:0 auto 30px;font-size:1rem;}
+  .email-link{
+    display:inline-block;font-family:'Fraunces';font-size:1.1rem;font-weight:500;
+    color:var(--ink);text-decoration:none;background:var(--paper);
+    border-radius:999px;padding:14px 30px;border:1.5px solid var(--ink);
+  }
+  .email-link:hover{background:var(--ink);color:var(--yellow);}
+
+  footer{
+    padding:28px 28px;text-align:center;font-size:.82rem;color:var(--muted);background:var(--cream);
+  }
+
+  @media (max-width:760px){
+    .navlinks{display:none;}
+    .hero{grid-template-columns:1fr;}
+    .hero-photo{max-width:280px;margin:0 auto;}
+    .milestone-grid{grid-template-columns:1fr;}
+    .project-card{grid-template-columns:1fr;}
+    .project-photo{min-height:180px;}
+    .recipe-grid{grid-template-columns:1fr 1fr;}
+    .overlap-band{padding:40px 24px;}
+    .blog-row{grid-template-columns:64px 1fr;}
+    .blog-thumb{width:64px;height:64px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand"><img src="./images/basicpage/Logosidetext.png" alt="Adi.Eats.Khaana"></div>
+    <div class="navlinks">
+      <a href="index.html">Home</a>
+      <a href="Food.html">Food</a>
+      <a href="Robotics.html">Robotics</a>
+      <!--<a href="#overlap">Connection</a> -->
+      <a href="#blog">Devlog</a>
+      <!--<a href="#recipes">Recipes</a>-->
+    </div>
+    <button class="nav-contact" onclick="document.getElementById('contact').scrollIntoView()">Contact Me</button>
+  </div>
+</nav>
+
+<!-- ===== HOME / ABOUT ===== -->
+<header class="hero">
+  <div>
+    <h1>Chef by heart. Roboticist by curiosity.</h1>
+    <p class="sub">I've been creating since I was three and this is where food, innovation, and imagination come together.</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="num">11 yrs</span>
+        <span class="label">Cooking since age 3</span>
+      </div>
+      <div class="stat">
+        <span class="num">300+</span>
+        <span class="label">People served at events</span>
+      </div>
+      <div class="stat">
+        <span class="num">14</span>
+        <span class="label">Current age</span>
+      </div>
+    </div>
+    <div class="throughline">
+      <p>Hi! I'm Adi. I've been cooking since I was three, building robots along the way, and turning curiosity into creativity. Join me as I share delicious recipes, fun experiments, behind-the-scenes adventures, and my dream of growing from a kid with a passion to serving unforgettable food.</p>
+    </div>
+  </div>
+  <div class="hero-photo">
+    <img src="./images/Aditya/Greetings.png" alt="Aditya">
+  </div>
+</header>
+
+<!-- ===== GROWING UP: AGE BY AGE (below About, top of Cooking Journey) ===== -->
+<section>
+  <span class="kicker">Food Journey</span>
+  <h2 class="section-title">From Chhota Chef to Big Dreams</h2>
+  <p class="section-intro">From rolling my first roti to chasing big dreams, every pinch of masala, every recipe, and every memory has shaped my journey.</p>
+
+  <div class="swipe-hint">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    Swipe to see 'How it started' and 'How it's going'
+  </div>
+
+  <div class="cl-scene" id="ageLineScene">
+    <div id="ageLineItems"></div>
+  </div>
+
+  <span class="kicker" style="margin-top:40px;">Events</span>
+  <p class="section-intro" style="margin-bottom:20px;">Tap a photo or event bubble to read the story behind it.</p>
+
+  <div class="events-wave-wrap">
+    <div class="events-wave-bg" id="eventsWaveBg"></div>
+    <div class="events-groups" id="eventsGroups"></div>
+  </div>
+</section>
+
+<!-- ===== ROBOTICS PROJECTS ===== -->
+<section id="robotics" class="section-rule">
+  <span class="kicker">Robotics</span>
+  <h2 class="section-title">Builds & Competitions</h2>
+  <p class="section-intro">Small or large, each project represents a step in my journey of building.</p>
+
+  <div class="project-list">
+    <div class="project-card">
+      <div class="project-photo"><img src="./Images/Robotics/Soilsampling.png" alt="Robotics project"></div>
+      <div class="project-body">
+        <span class="project-tag">First Lego League</span>
+        <h3>Soil Sampling Robot</h3>
+        <p>It has Arduino parts! From motors to sensors, the soil sampler has everything to be used in the field, and it's teaching me so much on my journey ~(˘▾˘~)</p>
+        <div class="problem-solved"><strong>Problem solved:</strong> In FLL, there's a challenge called INNOVATION. This year's theme was Arcteology — we had to solve a problem they faced. We built a soil sampling system and we have patent pending.</div>
+        <div class="code-block"><span class="cm">// a short snippet to see some code!</span><br>void setup() {<br>&nbsp;&nbsp;// Row 4: Lux + CTdisplay.setCursor(0,<br>&nbsp;&nbsp; 48);display.print(F("Lux "));<br>&nbsp;&nbsp;display.print(lux, 0);display.setCursor(70, 48);<br>&nbsp;&nbsp;display.print(F("CT "));<br>&nbsp;&nbsp;display.print(colorTemp, 0);display.println(F("K"));<br>&nbsp;&nbsp;display.display();delay(1000);<br>&nbsp;&nbsp;*/<br>}</div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-photo"><img src="./Images/Robotics/meegle.png" alt="Robotics project"></div>
+      <div class="project-body">
+        <span class="project-tag">Learning CAD</span>
+        <h3>Meegle</h3>
+        <p>While I was in Florida, my uncle and I loved to play the game Carcassonne! </p>
+        <div class="problem-solved"><strong>Problem solved:</strong> In the game you track your points on a board, but the piece would slide around. I made this file with a magnet inside and made the board magnetic so this would not happen（＾o^ ） </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== THE OVERLAP PROJECT ===== -->
+<!--<section id="overlap" class="section-rule">
+  <div class="overlap-band">
+    <span class="kicker">Featured</span>
+    <h2>The Overlap Project</h2>
+    <p>Something that combines cooking and robotics directly — this is the centerpiece. It doesn't need to be complicated: a simple Arduino-based kitchen gadget with a devlog showing how it came together can stand out more than a single polished build.</p>
+    <div class="overlap-examples">
+      <span class="overlap-chip">Pancake-flipping robot</span>
+      <span class="overlap-chip">Automated ingredient sorter</span>
+      <span class="overlap-chip">Sous-vide temperature monitor</span>
+      <span class="overlap-chip">Automatic spice dispenser</span>
+    </div>
+    <div class="overlap-photo">
+      <img src="https://placehold.co/1000x500/3D3128/FFD23F?text=Your+Overlap+Project+Here" alt="Overlap project">
+    </div>
+  </div>
+</section>
+-->
+<!-- ===== BLOG / DEVLOG ===== -->
+<section id="blog" class="section-rule">
+  <span class="kicker">Blog / Devlog</span>
+  <h2 class="section-title">Ongoing log</h2>
+  <p class="section-intro">Posts as I build — in the kitchen and in robotics. Consistency over time matters more here than any single polished post.</p>
+  <div class="blog-list">
+    <div class="blog-row">
+      <div class="blog-thumb"><img src="./Images/Aditya/Post3.png" alt="Devlog post"></div>
+      <div>
+        <div class="blog-date">July 2026</div>
+        <div class="blog-title">Working on +600 desserts</div>
+        <div class="blog-excerpt">Making Berry-Kissed Peanut Butter Dates, Rose peda, Chai Brittle, Petit Gulab Jamuns, Oreo modak, and Jalebi cupcake w/ rabdi ╰(°□⊙)╯</div>
+      </div>
+    </div>
+    <div class="blog-row">
+      <div class="blog-thumb"><img src="./Images/food/Post2.png" alt="Devlog post"></div>
+      <div>
+        <div class="blog-date">June 2026</div>
+        <div class="blog-title">Learning in India</div>
+        <div class="blog-excerpt"> I learned how to make chicken curry it was awasome!</div>
+      </div>
+    </div>
+    <div class="blog-row">
+      <div class="blog-thumb"><img src="./Images/food/Post1.png" alt="Devlog post"></div>
+      <div>
+        <div class="blog-date">May 2026</div>
+        <div class="blog-title">First place in cake competition</div>
+        <div class="blog-excerpt">I won first place in the local cake competition! It was a lot of hard work and dedication, but it was all worth it.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RECIPES ===== -->
+<!--<section id="recipes" class="section-rule">
+  <span class="kicker">Recipes</span>
+  <h2 class="section-title">Original recipes</h2>
+  <p class="section-intro">Recipes I've developed myself, especially ones that show experimentation — testing, adjusting, and refining, the same R&D mindset that goes into a robotics build.</p>
+  <div class="recipe-grid">
+    <div class="recipe-card">
+      <div class="recipe-photo"><img src="https://placehold.co/400x300/FFD23F/2B2420?text=Recipe" alt="Original recipe"></div>
+      <div class="recipe-body">
+        <span class="recipe-tag">Original</span>
+        <h4>[Recipe name]</h4>
+        <p>[Short note on what makes this one yours — an experiment, a twist, an iteration.]</p>
+      </div>
+    </div>
+    <div class="recipe-card">
+      <div class="recipe-photo"><img src="https://placehold.co/400x300/FFE9A8/2B2420?text=Recipe" alt="Original recipe"></div>
+      <div class="recipe-body">
+        <span class="recipe-tag">Original</span>
+        <h4>[Recipe name]</h4>
+        <p>[Short note on what makes this one yours — an experiment, a twist, an iteration.]</p>
+      </div>
+    </div>
+    <div class="recipe-card">
+      <div class="recipe-photo"><img src="https://placehold.co/400x300/E8A800/FFFDF8?text=Recipe" alt="Original recipe"></div>
+      <div class="recipe-body">
+        <span class="recipe-tag">Original</span>
+        <h4>[Recipe name]</h4>
+        <p>[Short note on what makes this one yours — an experiment, a twist, an iteration.]</p>
+      </div>
+    </div>
+  </div>
+</section>-->
+
+<div class="contact-band" id="contact">
+  <div class="contact-inner">
+    <span class="kicker">Get in touch</span>
+    <h2>Contact me</h2>
+    <p>For questions, collaborations, or anything else — reach out by email.</p>
+    <a class="email-link" href="mailto:singha01auscstudents.org@gmail.com">singha01auscstudents.org@gmail.com</a>
+  </div>
+</div>
+
+<footer>
+  Aditya · Contact: <a href="mailto:singha01auscstudents.org@gmail.com">singha01auscstudents.org@gmail.com</a>
+</footer>
+
+<script>
+  // ----- Growing Up: curved clothesline, big age cards, auto-swaying, with captions -----
+  (function(){
+    const AGES = [
+      { age: 1,  photo: './Images/Aditya/1yearold.png', text: 'Mission: Find the snacks. Status: In progress.' },
+      { age: 3,  photo: './Images/Aditya/3yearold.png', text: 'Expand your palette, expand your mind.' },
+      { age: 5,  photo: './Images/Aditya/5yearold.png', text: 'My feet barely reached the counter, but I was already running the kitchen ᕙ(⇀‸↼‶)ᕗ' },
+      { age: 6,  photo: './Images/Aditya/6yearold.png', text: 'Every great dish starts with knowing your ingredients. That means tasting them first!' },
+      { age: 7,  photo: './Images/Aditya/7yearold.png', text: 'Stirring pots, learning masalas, and falling in love with homemade khaana' },
+      { age: 9,  photo: './Images/Aditya/9yearold.png', text: 'Food adventures, traveling the world through flavors.' },
+      { age: 10, photo: './Images/Aditya/10yearold.png', text: 'Playing with the heat of spices.' },
+      { age: 11, photo: './Images/Aditya/11yearold.png', text: 'Sometimes bigger is better.' },
+      { age: 12, photo: './Images/Aditya/12yearold.png', text: 'Some recipes take hours. The best memories are worth every minute.' },
+      { age: 13, photo: './Images/Aditya/13yearold.png', text: 'Eye on the prize.' },
+    ];
+
+    const scene = document.getElementById('ageLineScene');
+    const items = document.getElementById('ageLineItems');
+    if (!scene || !items) return;
+
+    const SPACING = 310;              // px between card centers
+    const START_X = 150;              // keep first card's left edge inside the scrollable area
+    const TOTAL_W = START_X + SPACING * (AGES.length - 1) + 150;
+    const VOFFSET = 90;                // baseline y for the line
+    const AMP = 30;                    // wave amplitude
+    const SCENE_H = 640;
+
+    function yAt(x){
+      return VOFFSET + Math.sin((x / 560) * Math.PI * 2) * AMP;
+    }
+
+    function buildPathD(){
+      let d = `M 0 ${yAt(0).toFixed(1)}`;
+      for (let x = 15; x <= TOTAL_W; x += 15){
+        d += ` L ${x} ${yAt(x).toFixed(1)}`;
+      }
+      return d;
+    }
+
+    function layout(){
+      items.innerHTML = '';
+      items.style.width = TOTAL_W + 'px';
+      items.style.height = SCENE_H + 'px';
+      items.style.position = 'relative';
+
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('class', 'cl-line');
+      svg.setAttribute('width', TOTAL_W);
+      svg.setAttribute('height', SCENE_H);
+      svg.setAttribute('viewBox', `0 0 ${TOTAL_W} ${SCENE_H}`);
+
+      const path = document.createElementNS(svgNS, 'path');
+      path.setAttribute('d', buildPathD());
+      path.setAttribute('stroke', '#E8A800');
+      path.setAttribute('stroke-width', '3');
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke-linecap', 'round');
+      svg.appendChild(path);
+      items.appendChild(svg);
+
+      AGES.forEach((item, i) => {
+        const x = START_X + i * SPACING;
+        const y = yAt(x);
+
+        const swing = document.createElement('div');
+        swing.className = 'age-swing';
+        swing.style.left = (x - 110) + 'px';
+        swing.style.top = y + 'px';
+        const s = 2 + Math.random() * 4;
+        swing.style.setProperty('--cl-a1', (-s).toFixed(1) + 'deg');
+        swing.style.setProperty('--cl-a2', s.toFixed(1) + 'deg');
+        swing.style.animationDuration = (2.5 + Math.random() * 2.5).toFixed(2) + 's';
+        swing.style.animationDelay = (-Math.random() * 4).toFixed(2) + 's';
+
+        const peg = document.createElement('div');
+        peg.className = 'cl-peg';
+        swing.appendChild(peg);
+
+        const card = document.createElement('div');
+        card.className = 'cl-card';
+
+        const photo = document.createElement('div');
+        photo.className = 'cl-photo';
+        const img = document.createElement('img');
+        img.src = item.photo;
+        img.alt = 'Age ' + item.age;
+        photo.appendChild(img);
+        card.appendChild(photo);
+
+        const body = document.createElement('div');
+        body.className = 'cl-card-body';
+        body.innerHTML = `<span class="tl-year">Age ${item.age}</span><p class="tl-copy">${item.text}</p>`;
+        card.appendChild(body);
+
+        swing.appendChild(card);
+        items.appendChild(swing);
+      });
+    }
+
+    layout();
+  })();
+</script>
+
+<script>
+  // ----- Events background: layered, drifting waves (seamless loop) -----
+  (function(){
+    const bg = document.getElementById('eventsWaveBg');
+    if (!bg) return;
+
+    const LAYERS = [
+      { p1: 350, p2: 700, a1: 14, a2: 8,  baseline: 0.30, color: '#FFF3D3', duration: 30, phase: 0.0 },  // lightest, back — thin sliver near the top
+      { p1: 420, p2: 840, a1: 20, a2: 12, baseline: 0.58, color: '#FFDB6B', duration: 21, phase: 1.1 },  // mid band
+      { p1: 500, p2: 1000,a1: 26, a2: 16, baseline: 0.86, color: '#E8A800', duration: 14, phase: 2.4 }   // deepest, front, fastest, fills the bottom
+    ];
+
+    const VB_W = 1400, VB_H = 400;
+
+    function buildLayer(cfg){
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('class', 'wave-layer');
+      svg.style.width = '200%';
+      svg.style.animationDuration = cfg.duration + 's';
+      svg.setAttribute('viewBox', `0 0 ${VB_W * 2} ${VB_H}`);
+      svg.setAttribute('preserveAspectRatio', 'none');
+
+      const baseY = VB_H * cfg.baseline;
+      function yAt(x){
+        return baseY
+          + Math.sin((x / cfg.p1) * Math.PI * 2 + cfg.phase) * cfg.a1
+          + Math.sin((x / cfg.p2) * Math.PI * 2 + cfg.phase * 1.7) * cfg.a2;
+      }
+
+      let d = `M 0 ${yAt(0).toFixed(1)}`;
+      for (let x = 10; x <= VB_W * 2; x += 10){
+        d += ` L ${x} ${yAt(x).toFixed(1)}`;
+      }
+      d += ` L ${VB_W * 2} ${VB_H} L 0 ${VB_H} Z`;
+
+      const path = document.createElementNS(svgNS, 'path');
+      path.setAttribute('d', d);
+      path.setAttribute('fill', cfg.color);
+      svg.appendChild(path);
+      return svg;
+    }
+
+    LAYERS.forEach(cfg => bg.appendChild(buildLayer(cfg)));
+  })();
+</script>
+
+<script>
+  // ----- Events gallery: photo/bubble rows that expand a story panel on click -----
+  (function(){
+    const GROUPS = [
+      {
+        title: 'Graduation Celebration',
+        subtitle: 'Click to see more',
+        items: [
+          { type: 'photo', label: 'Indian "Hush Puppies"', img: './images/Food/gradphoto.png',
+            storyTitle: '[Photo caption]',
+            story: '[What food you made, what the event was for, etc.]' },
+          { type: 'bubble', label: '+100 people!', img: './Images/Aditya/GradK.png',
+            storyTitle: 'Graduation Celebration 2025',
+            story: '[What food you made, what the event was for, etc.]' },
+          { type: 'bubble', label: '8 ft snack board (¬‿¬)', img: './Images/Aditya/GradS.png',
+            storyTitle: 'Graduation Celebration 2025',
+            story: '[What food you made, what the event was for, etc.]' }
+        ]
+      },
+      {
+        title: 'Arangetram',
+        subtitle: 'Click to see more',
+        items: [
+          { type: 'bubble', label: '+600 sweets!', img: './Images/Aditya/Arangetram1.png',
+            storyTitle: '[Event 1 title]',
+            story: '[What food you made, what the event was for, etc.]' },
+          { type: 'bubble', label: '200 chocolate strawberries (°□°)', img: './Images/Aditya/Arangetram2.png',
+            storyTitle: '[Event 2 title]',
+            story: '[What food you made, what the event was for, etc.]' },
+          { type: 'photo', label: 'Custom boxes ', img: './Images/Aditya/Foodbox.png',
+            storyTitle: 'Custom boxes :',
+            story: '[What food you made, what the event was for, etc.]' }
+        ]
+      }
+    ];
+
+    const container = document.getElementById('eventsGroups');
+    if (!container) return;
+
+    GROUPS.forEach((group) => {
+      const groupEl = document.createElement('div');
+      groupEl.className = 'event-group';
+
+      const header = document.createElement('div');
+      header.className = 'event-group-header';
+      header.innerHTML = `<div class="event-title">${group.title}</div><div class="event-subtitle">${group.subtitle}</div>`;
+      groupEl.appendChild(header);
+
+      const row = document.createElement('div');
+      row.className = 'event-row';
+
+      const storyPanel = document.createElement('div');
+      storyPanel.className = 'event-story';
+
+      group.items.forEach((item) => {
+        const btn = document.createElement('button');
+        btn.className = 'event-item';
+        btn.innerHTML = `
+          <div class="${item.type === 'photo' ? 'event-photo' : 'event-bubble'}">
+            <img src="${item.img}" alt="${item.label}">
+          </div>
+          <span class="event-label">${item.label}</span>
+        `;
+
+        btn.addEventListener('click', () => {
+          const alreadyActive = btn.classList.contains('active');
+          row.querySelectorAll('.event-item').forEach(el => el.classList.remove('active'));
+
+          if (alreadyActive) {
+            storyPanel.classList.remove('open');
+            return;
+          }
+
+          btn.classList.add('active');
+          storyPanel.innerHTML = `<h4>${item.storyTitle}</h4><p>${item.story}</p>`;
+          storyPanel.classList.add('open');
+        });
+
+        row.appendChild(btn);
+      });
+
+      groupEl.appendChild(row);
+      groupEl.appendChild(storyPanel);
+      container.appendChild(groupEl);
+    });
+  })();
+</script>
+
+</body>
+</html>

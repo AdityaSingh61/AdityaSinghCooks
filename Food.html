@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food Gallery — Adi.Eats.Khaana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FAF6EC;
+    --paper:#FFFDF8;
+    --ink:#2B2420;
+    --muted:#6b625a;
+    --gold:#C9971F;
+    --gold-deep:#8f6a13;
+    --yellow:#FFD23F;
+    --yellow-soft:#FFF3D3;
+    --yellow-deep:#E8A800;
+    --rule:#E4DBC6;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--cream);color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    font-size:16px;line-height:1.6;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    margin:0;
+    letter-spacing:-.01em;
+  }
+  a{color:inherit;}
+
+  /* ---- NAV (same as home) ---- */
+  nav{
+    position:sticky;top:-80px;z-index:20;
+    background:rgba(250,246,236,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--rule);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:-70px -70px;max-width:1040px;margin:-70px auto;
+  }
+  .brand{
+    font-family:'Fraunces';font-weight:500;font-size:1.1rem;
+    letter-spacing:.01em;
+    display:flex;align-items:center;
+  }
+  .brand img{display:block;height:250px;width:auto;margin:0;}
+  .navlinks{display:flex;gap:22px;font-size:.82rem;font-weight:500;color:var(--muted);flex-wrap:wrap;}
+  .navlinks a{text-decoration:none;}
+  .navlinks a:hover{color:var(--ink);}
+  .navlinks a.current{color:var(--ink);}
+  .nav-contact{
+    background:var(--yellow);color:var(--ink);border:none;
+    font-family:'Inter';font-weight:700;font-size:.82rem;
+    padding:9px 18px;border-radius:999px;cursor:pointer;letter-spacing:.02em;
+    white-space:nowrap;
+  }
+  .nav-contact:hover{background:var(--yellow-deep);}
+
+  /* ---- PAGE HEADER ---- */
+  .page-header{max-width:1040px;margin:0 auto;padding:56px 28px 20px;}
+  .kicker{
+    font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--gold-deep);display:inline-block;margin-bottom:16px;
+    background:var(--yellow-soft);border-radius:999px;padding:6px 14px;
+  }
+  .page-title{font-size:2rem;font-weight:500;margin-bottom:10px;max-width:640px;}
+  .page-intro{font-size:1rem;color:var(--muted);max-width:620px;}
+  .back-link{
+    display:inline-flex;align-items:center;gap:6px;margin-top:22px;
+    font-size:.85rem;font-weight:600;color:var(--gold-deep);text-decoration:none;
+  }
+  .back-link svg{width:16px;height:16px;}
+  .back-link:hover{color:var(--ink);}
+
+  /* ---- FILTER TABS ---- */
+  .filter-tabs{
+    display:flex;gap:10px;max-width:1040px;margin:0 auto;padding:0 28px 30px;flex-wrap:wrap;
+  }
+  .filter-tab{
+    font-family:'Inter';font-weight:600;font-size:.82rem;color:var(--muted);
+    background:var(--paper);border:1.5px solid var(--rule);border-radius:999px;
+    padding:8px 18px;cursor:pointer;
+  }
+  .filter-tab:hover{border-color:var(--yellow);}
+  .filter-tab.active{background:var(--yellow);border-color:var(--yellow);color:var(--ink);}
+
+  /* ---- GALLERY GRID ---- */
+  .gallery-grid{
+    max-width:1040px;margin:0 auto;padding:0 28px 80px;
+    columns:3 220px;column-gap:18px;
+  }
+  .gallery-item{
+    break-inside:avoid;margin-bottom:18px;position:relative;
+    border-radius:16px;overflow:hidden;cursor:pointer;
+    border:1.5px solid var(--rule);background:var(--yellow-soft);
+  }
+  .gallery-item img{width:100%;display:block;}
+  .gallery-caption{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:10px 12px;
+    background:linear-gradient(to top, rgba(43,36,32,.65), rgba(43,36,32,0));
+    color:#fff;font-size:.8rem;font-weight:600;
+    opacity:0;transition:opacity .15s ease;
+  }
+  .gallery-item:hover .gallery-caption{opacity:1;}
+  .play-badge{
+    position:absolute;top:10px;right:10px;
+    width:34px;height:34px;border-radius:50%;
+    background:rgba(43,36,32,.65);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .play-badge svg{width:14px;height:14px;fill:#fff;margin-left:2px;}
+
+  /* ---- LIGHTBOX ---- */
+  .lightbox{
+    position:fixed;inset:0;background:rgba(43,36,32,.92);
+    display:none;align-items:center;justify-content:center;
+    z-index:100;padding:28px;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox-content{
+    max-width:900px;max-height:86vh;width:100%;
+    display:flex;flex-direction:column;gap:14px;align-items:center;
+  }
+  .lightbox-content img,.lightbox-content video{
+    max-width:100%;max-height:70vh;border-radius:14px;display:block;
+  }
+  .lightbox-caption{color:var(--yellow-soft);font-size:.92rem;text-align:center;}
+  .lightbox-close{
+    position:absolute;top:24px;right:28px;
+    width:40px;height:40px;border-radius:50%;
+    background:rgba(255,255,255,.12);border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .lightbox-close svg{width:18px;height:18px;stroke:#fff;}
+  .lightbox-nav{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:44px;height:44px;border-radius:50%;
+    background:rgba(255,255,255,.12);border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .lightbox-nav svg{width:18px;height:18px;stroke:#fff;}
+  .lightbox-prev{left:24px;}
+  .lightbox-next{right:24px;}
+
+  footer{
+    padding:28px 28px;text-align:center;font-size:.82rem;color:var(--muted);background:var(--cream);
+    border-top:1px solid var(--rule);
+  }
+
+  @media (max-width:760px){
+    .navlinks{display:none;}
+    .gallery-grid{columns:2 160px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><img src="./images/basicpage/Logosidetext.png" alt="Adi.Eats.Khaana"></a>
+    <div class="navlinks">
+      <a href="index.html">Home</a>
+      <a href="food.html" class="current">Food</a>
+      <a href="robotics.html">Robotics</a>
+      <!--<a href="index.html#overlap">Connection</a>-->
+      <a href="index.html#blog">Devlog</a>
+      <!--<a href="index.html#recipes">Recipes</a>-->
+    </div>
+    <button class="nav-contact" onclick="location.href='index.html#contact'">Contact Me</button>
+  </div>
+</nav>
+
+<div class="page-header">
+  <span class="kicker">Food Gallery</span>
+  <h1 class="page-title">Everything I've cooked, plated, and filmed</h1>
+  <p class="page-intro">Photos and videos from the kitchen — dishes, events, and behind-the-scenes moments. Tap anything to view it larger.</p>
+  <a class="back-link" href="index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    Back to home
+  </a>
+</div>
+
+<div class="filter-tabs" id="filterTabs">
+  <button class="filter-tab active" data-filter="all">All</button>
+  <button class="filter-tab" data-filter="photo">Photos</button>
+  <button class="filter-tab" data-filter="video">Videos</button>
+</div>
+
+<div class="gallery-grid" id="galleryGrid"></div>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <div class="lightbox-content" id="lightboxContent"></div>
+  <button class="lightbox-nav lightbox-next" id="lightboxNext">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+</div>
+
+<footer>
+  Aditya · Contact: <a href="mailto:singha01auscstudents.org@gmail.com">singha01auscstudents.org@gmail.com</a>
+</footer>
+
+<script>
+  // ----- Food gallery data -----
+  // Swap `src` for your real photos, and for videos set `src` to your video file
+  // (e.g. './videos/dosa.mp4') plus a `poster` thumbnail image.
+  const ITEMS = [
+    { type: 'photo', src: './images/food gallery/food1.png', },
+    { type: 'photo', src: './images/food gallery/food2.png', },
+    { type: 'photo', src: './images/food gallery/food3.png', },
+    { type: 'photo', src: './images/food gallery/food4.png', },
+    { type: 'photo', src: './images/food gallery/food5.png', },
+    { type: 'photo', src: './images/food gallery/food6.png', },
+    { type: 'photo', src: './images/food gallery/food7.png', },
+    { type: 'photo', src: './images/food gallery/food8.png', },
+    { type: 'photo', src: './images/food gallery/food9.png', },
+    { type: 'photo', src: './images/food gallery/food10.png', },
+    { type: 'photo', src: './images/food gallery/food11.png', },
+    { type: 'photo', src: './images/food gallery/food12.png', },
+    { type: 'photo', src: './images/food/Post1.png', },
+    { type: 'photo', src: './images/food/Post2.png', },
+    { type: 'video', src: './images/food gallery/food13.mp4', poster: './images/food gallery/foodp13.png' },
+    { type: 'video', src: './images/food gallery/food14.mp4', poster: './images/food gallery/foodp14.png' },
+    { type: 'video', src: './images/food gallery/food15.mp4', poster: './images/food gallery/foodp15.png' },
+    { type: 'video', src: './images/food gallery/food16.mp4', poster: './images/food gallery/foodp16.png' },
+    { type: 'video', src: './images/food gallery/food17.mp4', poster: './images/food gallery/foodp17.png' },
+    { type: 'video', src: './images/food gallery/food18.mp4', poster: './images/food gallery/foodp18.png' },
+  ];
+
+  const grid = document.getElementById('galleryGrid');
+  const tabs = document.getElementById('filterTabs');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxContent = document.getElementById('lightboxContent');
+
+  let currentFilter = 'all';
+  let currentIndex = 0;
+
+  function visibleItems(){
+    return ITEMS
+      .map((item, i) => ({ item, i }))
+      .filter(({ item }) => currentFilter === 'all' || item.type === currentFilter);
+  }
+
+  function renderGrid(){
+    grid.innerHTML = '';
+    visibleItems().forEach(({ item, i }) => {
+      const card = document.createElement('div');
+      card.className = 'gallery-item';
+
+      const thumbSrc = item.type === 'video' ? item.poster : item.src;
+      card.innerHTML = `
+        <img src="${thumbSrc}" alt="${item.caption}">
+        <div class="gallery-caption">${item.caption}</div>
+        ${item.type === 'video' ? `<div class="play-badge"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg></div>` : ''}
+      `;
+      card.addEventListener('click', () => openLightbox(i));
+      grid.appendChild(card);
+    });
+  }
+
+  function openLightbox(index){
+    currentIndex = index;
+    renderLightbox();
+    lightbox.classList.add('open');
+  }
+
+  function renderLightbox(){
+    const item = ITEMS[currentIndex];
+    lightboxContent.innerHTML = item.type === 'video'
+      ? `<video src="${item.src}" poster="${item.poster}" controls autoplay></video><div class="lightbox-caption">${item.caption}</div>`
+      : `<img src="${item.src}" alt="${item.caption}"><div class="lightbox-caption">${item.caption}</div>`;
+  }
+
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    lightboxContent.innerHTML = '';
+  }
+
+  function step(dir){
+    currentIndex = (currentIndex + dir + ITEMS.length) % ITEMS.length;
+    renderLightbox();
+  }
+
+  tabs.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentFilter = tab.dataset.filter;
+      renderGrid();
+    });
+  });
+
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  document.getElementById('lightboxPrev').addEventListener('click', () => step(-1));
+  document.getElementById('lightboxNext').addEventListener('click', () => step(1));
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+  });
+
+  renderGrid();
+</script>
+
+</body>
+</html>
