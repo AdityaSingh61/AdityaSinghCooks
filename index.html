@@ -39,7 +39,7 @@
 
   /* ---- NAV ---- */
   nav{
-    position:sticky;top: -100px;;z-index:20;
+    position:sticky;top: -80px;;z-index:20;
     background:rgba(250,246,236,.92);
     backdrop-filter:blur(6px);
     border-bottom:1px solid var(--rule);
@@ -59,7 +59,7 @@
     width:auto;
     margin:0;
   }
-  
+
   .navlinks{display:flex;gap:22px;font-size:.82rem;font-weight:500;color:var(--muted);flex-wrap:wrap;}
   .navlinks a{text-decoration:none;}
   .navlinks a:hover{color:var(--ink);}
@@ -397,11 +397,12 @@
   <div class="nav-inner">
     <div class="brand"><img src="./images/basicpage/Logosidetext.png" alt="Adi.Eats.Khaana"></div>
     <div class="navlinks">
-      <a href="#cooking">Food</a>
-      <a href="#robotics">Robotics</a>
-      <a href="#overlap">Connection</a>
+      <a href="index.html">Home</a>
+      <a href="Food.html">Food</a>
+      <a href="Robotics.html">Robotics</a>
+      <!--<a href="#overlap">Connection</a> -->
       <a href="#blog">Devlog</a>
-      <a href="#recipes">Recipes</a>
+      <!--<a href="#recipes">Recipes</a>-->
     </div>
     <button class="nav-contact" onclick="document.getElementById('contact').scrollIntoView()">Contact Me</button>
   </div>
@@ -461,37 +462,36 @@
 
 <!-- ===== ROBOTICS PROJECTS ===== -->
 <section id="robotics" class="section-rule">
-  <span class="kicker">Robotics Projects</span>
-  <h2 class="section-title">Builds & competitions</h2>
-  <p class="section-intro">Write-ups of what I've built — even small projects count when they're explained well. Each one includes what it does, the problem it solved, and a bit of the code behind it.</p>
+  <span class="kicker">Robotics</span>
+  <h2 class="section-title">Builds & Competitions</h2>
+  <p class="section-intro">Small or large, each project represents a step in my journey of building.</p>
 
   <div class="project-list">
     <div class="project-card">
-      <div class="project-photo"><img src="https://placehold.co/500x400/FFD23F/2B2420?text=Project+Photo" alt="Robotics project"></div>
+      <div class="project-photo"><img src="./Images/Robotics/Soilsampling.png" alt="Robotics project"></div>
       <div class="project-body">
-        <span class="project-tag">[Competition or Personal Build]</span>
-        <h3>[Project Name]</h3>
-        <p>[One or two sentences on what the project is and why you built it.]</p>
-        <div class="problem-solved"><strong>Problem solved:</strong> [What real problem or challenge this build addressed.]</div>
-        <div class="code-block"><span class="cm">// a short, representative snippet from the build</span><br>void setup() {<br>&nbsp;&nbsp;// your code here<br>}</div>
+        <span class="project-tag">First Lego League</span>
+        <h3>Soil Sampling Robot</h3>
+        <p>It has Arduino parts! From motors to sensors, the soil sampler has everything to be used in the field, and it's teaching me so much on my journey ~(˘▾˘~)</p>
+        <div class="problem-solved"><strong>Problem solved:</strong> In FLL, there's a challenge called INNOVATION. This year's theme was Arcteology — we had to solve a problem they faced. We built a soil sampling system and we have patent pending.</div>
+        <div class="code-block"><span class="cm">// a short snippet to see some code!</span><br>void setup() {<br>&nbsp;&nbsp;// Row 4: Lux + CTdisplay.setCursor(0,<br>&nbsp;&nbsp; 48);display.print(F("Lux "));<br>&nbsp;&nbsp;display.print(lux, 0);display.setCursor(70, 48);<br>&nbsp;&nbsp;display.print(F("CT "));<br>&nbsp;&nbsp;display.print(colorTemp, 0);display.println(F("K"));<br>&nbsp;&nbsp;display.display();delay(1000);<br>&nbsp;&nbsp;*/<br>}</div>
       </div>
     </div>
 
     <div class="project-card">
-      <div class="project-photo"><img src="https://placehold.co/500x400/FFDB6B/2B2420?text=Project+Photo" alt="Robotics project"></div>
+      <div class="project-photo"><img src="./Images/Robotics/meegle.png" alt="Robotics project"></div>
       <div class="project-body">
-        <span class="project-tag">[Competition or Personal Build]</span>
-        <h3>[Project Name]</h3>
-        <p>[One or two sentences on what the project is and why you built it.]</p>
-        <div class="problem-solved"><strong>Problem solved:</strong> [What real problem or challenge this build addressed.]</div>
-        <div class="code-block"><span class="cm">// a short, representative snippet from the build</span><br>void loop() {<br>&nbsp;&nbsp;// your code here<br>}</div>
+        <span class="project-tag">Learning CAD</span>
+        <h3>Meegle</h3>
+        <p>While I was in Florida, my uncle and I loved to play the game Carcassonne! </p>
+        <div class="problem-solved"><strong>Problem solved:</strong> In the game you track your points on a board, but the piece would slide around. I made this file with a magnet inside and made the board magnetic so this would not happen（＾o^ ） </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ===== THE OVERLAP PROJECT ===== -->
-<section id="overlap" class="section-rule">
+<!--<section id="overlap" class="section-rule">
   <div class="overlap-band">
     <span class="kicker">Featured</span>
     <h2>The Overlap Project</h2>
@@ -507,7 +507,7 @@
     </div>
   </div>
 </section>
-
+-->
 <!-- ===== BLOG / DEVLOG ===== -->
 <section id="blog" class="section-rule">
   <span class="kicker">Blog / Devlog</span>
@@ -515,34 +515,34 @@
   <p class="section-intro">Posts as I build — in the kitchen and in robotics. Consistency over time matters more here than any single polished post.</p>
   <div class="blog-list">
     <div class="blog-row">
-      <div class="blog-thumb"><img src="https://placehold.co/200x200/FFD23F/2B2420?text=Post" alt="Devlog post"></div>
+      <div class="blog-thumb"><img src="./Images/Aditya/Post3.png" alt="Devlog post"></div>
       <div>
-        <div class="blog-date">[Month Year]</div>
-        <div class="blog-title">[Post title]</div>
-        <div class="blog-excerpt">[Short excerpt of what this update covers.]</div>
+        <div class="blog-date">July 2026</div>
+        <div class="blog-title">Working on +600 desserts</div>
+        <div class="blog-excerpt">Making Berry-Kissed Peanut Butter Dates, Rose peda, Chai Brittle, Petit Gulab Jamuns, Oreo modak, and Jalebi cupcake w/ rabdi ╰(°□⊙)╯</div>
       </div>
     </div>
     <div class="blog-row">
-      <div class="blog-thumb"><img src="https://placehold.co/200x200/FFDB6B/2B2420?text=Post" alt="Devlog post"></div>
+      <div class="blog-thumb"><img src="./Images/food/Post2.png" alt="Devlog post"></div>
       <div>
-        <div class="blog-date">[Month Year]</div>
-        <div class="blog-title">[Post title]</div>
-        <div class="blog-excerpt">[Short excerpt of what this update covers.]</div>
+        <div class="blog-date">June 2026</div>
+        <div class="blog-title">Learning in India</div>
+        <div class="blog-excerpt"> I learned how to make chicken curry it was awasome!</div>
       </div>
     </div>
     <div class="blog-row">
-      <div class="blog-thumb"><img src="https://placehold.co/200x200/E8A800/FFFDF8?text=Post" alt="Devlog post"></div>
+      <div class="blog-thumb"><img src="./Images/food/Post1.png" alt="Devlog post"></div>
       <div>
-        <div class="blog-date">[Month Year]</div>
-        <div class="blog-title">[Post title]</div>
-        <div class="blog-excerpt">[Short excerpt of what this update covers.]</div>
+        <div class="blog-date">May 2026</div>
+        <div class="blog-title">First place in cake competition</div>
+        <div class="blog-excerpt">I won first place in the local cake competition! It was a lot of hard work and dedication, but it was all worth it.</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ===== RECIPES ===== -->
-<section id="recipes" class="section-rule">
+<!--<section id="recipes" class="section-rule">
   <span class="kicker">Recipes</span>
   <h2 class="section-title">Original recipes</h2>
   <p class="section-intro">Recipes I've developed myself, especially ones that show experimentation — testing, adjusting, and refining, the same R&D mindset that goes into a robotics build.</p>
@@ -572,7 +572,7 @@
       </div>
     </div>
   </div>
-</section>
+</section>-->
 
 <div class="contact-band" id="contact">
   <div class="contact-inner">
@@ -593,7 +593,7 @@
     const AGES = [
       { age: 1,  photo: './Images/Aditya/1yearold.png', text: 'Mission: Find the snacks. Status: In progress.' },
       { age: 3,  photo: './Images/Aditya/3yearold.png', text: 'Expand your palette, expand your mind.' },
-      { age: 5,  photo: './Images/Aditya/5yearold.png', text: 'My feet barely reached the counter, but I was already running the kitchen:)' },
+      { age: 5,  photo: './Images/Aditya/5yearold.png', text: 'My feet barely reached the counter, but I was already running the kitchen ᕙ(⇀‸↼‶)ᕗ' },
       { age: 6,  photo: './Images/Aditya/6yearold.png', text: 'Every great dish starts with knowing your ingredients. That means tasting them first!' },
       { age: 7,  photo: './Images/Aditya/7yearold.png', text: 'Stirring pots, learning masalas, and falling in love with homemade khaana' },
       { age: 9,  photo: './Images/Aditya/9yearold.png', text: 'Food adventures, traveling the world through flavors.' },
@@ -746,29 +746,29 @@
         title: 'Graduation Celebration',
         subtitle: 'Click to see more',
         items: [
-          { type: 'photo', label: 'Photo', img: './images/events/graduation-photo.png',
+          { type: 'photo', label: 'Indian "Hush Puppies"', img: './images/Food/gradphoto.png',
             storyTitle: '[Photo caption]',
             story: '[What food you made, what the event was for, etc.]' },
-          { type: 'bubble', label: 'Event 1', img: './images/events/graduation-1.png',
-            storyTitle: '[Event 1 title]',
+          { type: 'bubble', label: '+100 people!', img: './Images/Aditya/GradK.png',
+            storyTitle: 'Graduation Celebration 2025',
             story: '[What food you made, what the event was for, etc.]' },
-          { type: 'bubble', label: 'Event 2', img: './images/events/graduation-2.png',
-            storyTitle: '[Event 2 title]',
+          { type: 'bubble', label: '8 ft snack board (¬‿¬)', img: './Images/Aditya/GradS.png',
+            storyTitle: 'Graduation Celebration 2025',
             story: '[What food you made, what the event was for, etc.]' }
         ]
       },
       {
-        title: '[Event Group Name]',
+        title: 'Arangetram',
         subtitle: 'Click to see more',
         items: [
-          { type: 'bubble', label: 'Event 1', img: './images/events/event2-1.png',
+          { type: 'bubble', label: '+600 sweets!', img: './Images/Aditya/Arangetram1.png',
             storyTitle: '[Event 1 title]',
             story: '[What food you made, what the event was for, etc.]' },
-          { type: 'bubble', label: 'Event 2', img: './images/events/event2-2.png',
+          { type: 'bubble', label: '200 chocolate strawberries (°□°)', img: './Images/Aditya/Arangetram2.png',
             storyTitle: '[Event 2 title]',
             story: '[What food you made, what the event was for, etc.]' },
-          { type: 'photo', label: 'Photo', img: './images/events/event2-photo.png',
-            storyTitle: '[Photo caption]',
+          { type: 'photo', label: 'Custom boxes ', img: './Images/Aditya/Foodbox.png',
+            storyTitle: 'Custom boxes :',
             story: '[What food you made, what the event was for, etc.]' }
         ]
       }
