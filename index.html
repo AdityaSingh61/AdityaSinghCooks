@@ -63,6 +63,12 @@
   .navlinks{display:flex;gap:22px;font-size:.82rem;font-weight:500;color:var(--muted);flex-wrap:wrap;}
   .navlinks a{text-decoration:none;}
   .navlinks a:hover{color:var(--ink);}
+  .nav-toggle{
+    display:none;width:40px;height:40px;padding:0;border:1.5px solid var(--rule);
+    border-radius:12px;background:var(--paper);color:var(--ink);cursor:pointer;
+    align-items:center;justify-content:center;
+  }
+  .nav-toggle svg{width:20px;height:20px;}
   .nav-contact{
     background:var(--yellow);color:var(--ink);border:none;
     font-family:'Inter';font-weight:700;font-size:.82rem;
@@ -378,7 +384,16 @@
   }
 
   @media (max-width:760px){
-    .navlinks{display:none;}
+    nav{top:0;}
+    .nav-inner{min-height:70px;margin:0 auto;padding:7px 16px;gap:12px;}
+    .brand img{height:54px;max-width:180px;object-fit:contain;object-position:left center;}
+    .nav-toggle{display:flex;flex:0 0 auto;}
+    .navlinks{display:none;position:absolute;top:calc(100% + 8px);left:12px;right:12px;
+      padding:10px;background:var(--paper);border:1.5px solid var(--rule);border-radius:16px;
+      box-shadow:0 12px 28px rgba(43,36,32,.12);}
+    nav.nav-open .navlinks{display:flex;flex-direction:column;gap:0;}
+    .navlinks a{padding:12px 13px;border-radius:10px;font-size:.9rem;}
+    .navlinks a:hover,.navlinks a:focus{background:var(--yellow-soft);outline:none;}
     .hero{grid-template-columns:1fr;}
     .hero-photo{max-width:280px;margin:0 auto;}
     .milestone-grid{grid-template-columns:1fr;}
@@ -389,22 +404,117 @@
     .blog-row{grid-template-columns:64px 1fr;}
     .blog-thumb{width:64px;height:64px;}
   }
+
+  /* ---- PHONE LAYOUT ---- */
+    @media (max-width:600px){
+      body{font-size:15px;line-height:1.55;overflow-x:hidden;}
+      .wrap{padding:0 18px;}
+
+    nav{
+      position:sticky;top: -80px;;z-index:20;
+      background:rgba(250,246,236,.92);
+      backdrop-filter:blur(6px);
+      border-bottom:1px solid var(--rule);
+    }
+    .nav-inner{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:-70px -70px;max-width:1040px;margin:-70px auto;
+    }
+    .brand{
+      font-family:'Fraunces';font-weight:500;font-size:1.1rem;
+      letter-spacing:.01em;
+      display:flex;align-items:center;
+    }
+    .brand img{
+      display:block;
+      height: 250px;
+      width:auto;
+      margin:0;
+    }
+    .nav-toggle{display:flex;flex:0 0 auto;}
+    .navlinks{display:none;position:absolute;top:calc(100% + 8px);left:12px;right:12px;
+      padding:10px;background:var(--paper);border:1.5px solid var(--rule);border-radius:16px;
+      box-shadow:0 12px 28px rgba(43,36,32,.12);}
+    nav.nav-open .navlinks{display:flex;flex-direction:column;gap:0;}
+    .navlinks a{padding:12px 13px;border-radius:10px;font-size:.9rem;}
+    .navlinks a:hover,.navlinks a:focus{background:var(--yellow-soft);outline:none;}
+    .nav-contact{padding:9px 13px;font-size:.72rem;}
+
+    .hero{padding:38px 20px 48px;gap:30px;}
+    .hero h1{font-size:2.35rem;line-height:1.1;}
+    .hero p.sub{margin-top:16px;font-size:1rem;}
+    .hero-photo{order:-1;width:100%;max-width:none;height:330px;margin:0;border-radius:20px;}
+    .hero-photo img{object-position:center;}
+    .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:24px;}
+    .stat{padding:12px 10px;border-radius:15px;min-width:0;}
+    .stat .num{font-size:1.25rem;line-height:1.15;}
+    .stat .label{font-size:.66rem;line-height:1.25;display:block;margin-top:5px;}
+    .throughline{margin-top:18px;padding:15px 16px;border-radius:14px;}
+    .throughline p{font-size:.89rem;}
+
+    section{padding:48px 20px;}
+    .kicker{margin-bottom:12px;padding:5px 12px;font-size:.68rem;}
+    .section-title{font-size:1.65rem;line-height:1.18;margin-bottom:9px;}
+    .section-intro{font-size:.92rem;margin-bottom:26px;}
+    .swipe-hint{font-size:.78rem;margin:4px 0 12px;}
+
+    .cl-scene{height:520px;margin-right:-20px;}
+    .cl-card{width:190px;border-radius:17px;}
+    .cl-card-body{padding:13px 15px 16px;}
+    .tl-year{font-size:.95rem;}
+    .tl-copy{font-size:.8rem;}
+
+    .events-wave-wrap{border-radius:22px;padding:23px 16px 18px;min-height:0;}
+    .events-groups{gap:40px;padding:8px 0 2px;}
+    .event-group-header{margin-bottom:15px;}
+    .event-title{font-size:1.18rem;}
+    .event-row{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;gap:16px;padding:2px 1px 12px;scroll-snap-type:x mandatory;}
+    .event-item{flex:0 0 118px;width:118px;scroll-snap-align:start;}
+    .event-photo,.event-bubble{width:118px;height:118px;}
+    .event-item .event-label{font-size:.76rem;line-height:1.3;}
+    .event-story{margin-top:12px;padding:18px; border-radius:16px;}
+
+    .project-list{gap:18px;}
+    .project-card{border-radius:18px;}
+    .project-photo{min-height:220px;}
+    .project-body{padding:20px;}
+    .project-body h3{font-size:1.2rem;}
+    .project-body p{font-size:.88rem;}
+    .problem-solved{font-size:.8rem;padding:11px 12px;}
+    .code-block{font-size:.7rem;padding:14px;}
+
+    .blog-row{grid-template-columns:62px 1fr;gap:14px;padding:18px 0;align-items:start;}
+    .blog-thumb{width:62px;height:62px;border-radius:12px;}
+    .blog-date{font-size:.68rem;}
+    .blog-title{font-size:1rem;line-height:1.25;}
+    .blog-excerpt{font-size:.82rem;line-height:1.45;}
+
+    .contact-band{margin:0 14px 34px;border-radius:24px;}
+    .contact-inner{padding:45px 20px;}
+    .contact-inner h2{font-size:1.65rem;}
+    .contact-inner p{font-size:.9rem;margin-bottom:24px;}
+    .email-link{max-width:100%;font-size:.9rem;padding:12px 17px;overflow-wrap:anywhere;}
+    footer{padding:20px 18px;font-size:.72rem;overflow-wrap:anywhere;}
+  }
 </style>
 </head>
 <body>
 
 <nav>
   <div class="nav-inner">
-    <div class="brand"><img src="./Images/basicpage/Logosidetext.png" alt="Adi.Eats.Khaana"></div>
+    <div class="brand"><img src="./images/basicpage/Logosidetext.png" alt="Adi.Eats.Khaana"></div>
     <div class="navlinks">
       <a href="index.html">Home</a>
       <a href="#adi">Me</a>
-      <a href="#events">Events</a>
       <a href="#robotics">Robotics</a>
+      <a href="#events">Events</a>
       <a href="#blog">Devlog</a>
       <!--<a href="#recipes">Recipes</a>-->
     </div>
     <button class="nav-contact" onclick="document.getElementById('contact').scrollIntoView()">Contact Me</button>
+    <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="phone-nav">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
   </div>
 </nav>
 
@@ -432,7 +542,7 @@
     </div>
   </div>
   <div class="hero-photo">
-    <img src="./Images/Aditya/Greetings.png" alt="Aditya">
+    <img src="./images/Aditya/Greetings.png" style="width:100%;height:100%;object-fit:cover;display:block;top:0;" alt="Aditya">
   </div>
 </header>
 
@@ -480,7 +590,7 @@
     </div>
 
     <div class="project-card">
-      <div class="project-photo"><img src="./Images/Robotics/Meegle.png" alt="Robotics project"></div>
+      <div class="project-photo"><img src="./Images/Robotics/meegle.png" alt="Robotics project"></div>
       <div class="project-body">
         <span class="project-tag">Learning CAD</span>
         <h3>Meegle</h3>
@@ -587,6 +697,28 @@
 <footer>
   Aditya · Contact: <a href="mailto:singha01auscstudents.org@gmail.com">singha01auscstudents.org@gmail.com</a>
 </footer>
+
+<script>
+  // ----- Phone navigation -----
+  (function(){
+    const nav = document.querySelector('nav');
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.navlinks');
+    if (!nav || !toggle || !links) return;
+
+    links.id = 'phone-nav';
+    toggle.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('nav-open');
+      toggle.setAttribute('aria-expanded', isOpen);
+      toggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+    });
+    links.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      nav.classList.remove('nav-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open navigation menu');
+    }));
+  })();
+</script>
 
 <script>
   // ----- Growing Up: curved clothesline, big age cards, auto-swaying, with captions -----
@@ -747,15 +879,15 @@
         title: 'Graduation Celebration',
         subtitle: 'Click to see more',
         items: [
-          { type: 'photo', label: 'Indian "Hush Puppies"', img: './Images/food/Gradphoto.png',
-            storyTitle: 'Indian "Hush Puppies',
-            story: 'Sorry, come back later and this will be up! :(' },
+          { type: 'photo', label: 'Indian "Hush Puppies"', img: './images/Food/gradphoto.png',
+            storyTitle: '[Photo caption]',
+            story: '[What food you made, what the event was for, etc.]' },
           { type: 'bubble', label: '+100 people!', img: './Images/Aditya/GradK.png',
-            storyTitle: '+100 people!',
-            story: 'Sorry, come back later and this will be up! :(' },
+            storyTitle: 'Graduation Celebration 2025',
+            story: '[What food you made, what the event was for, etc.]' },
           { type: 'bubble', label: '8 ft snack board (¬‿¬)', img: './Images/Aditya/GradS.png',
-            storyTitle: '8 ft snack board (¬‿¬)',
-            story: 'Sorry, come back later and this will be up! :(' }
+            storyTitle: 'Graduation Celebration 2025',
+            story: '[What food you made, what the event was for, etc.]' }
         ]
       },
       {
@@ -763,14 +895,14 @@
         subtitle: 'Click to see more',
         items: [
           { type: 'bubble', label: '+600 sweets!', img: './Images/Aditya/Arangetram1.png',
-            storyTitle: '+600 sweets!',
-            story: 'Sorry, come back later and this will be up! :(' },
+            storyTitle: '[Event 1 title]',
+            story: '[What food you made, what the event was for, etc.]' },
           { type: 'bubble', label: '200 chocolate strawberries (°□°)', img: './Images/Aditya/Arangetram2.png',
-            storyTitle: '200 chocolate strawberries (°□°)',
-            story: 'Sorry, come back later and this will be up! :(' },
-          { type: 'photo', label: 'Custom boxes', img: './Images/Aditya/Foodbox.png',
+            storyTitle: '[Event 2 title]',
+            story: '[What food you made, what the event was for, etc.]' },
+          { type: 'photo', label: 'Custom boxes ', img: './Images/Aditya/Foodbox.png',
             storyTitle: 'Custom boxes :',
-            story: 'Sorry, come back later and this will be up! :(' }
+            story: '[What food you made, what the event was for, etc.]' }
         ]
       }
     ];
