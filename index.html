@@ -397,9 +397,9 @@
   <div class="nav-inner">
     <div class="brand"><img src="./images/basicpage/Logosidetext.png" alt="Adi.Eats.Khaana"></div>
     <div class="navlinks">
-      <a href="./index.html">Home</a>
-      <a href="./Food.html">Food</a>
-      <a href="./Robotics.html">Robotics</a>
+      <a href="index.html">Home</a>
+      <a href="Food.html">Food</a>
+      <a href="Robotics.html">Robotics</a>
       <!--<a href="#overlap">Connection</a> -->
       <a href="#blog">Devlog</a>
       <!--<a href="#recipes">Recipes</a>-->
@@ -428,7 +428,7 @@
       </div>
     </div>
     <div class="throughline">
-      <p>Hi! I'm Adi. I've been cooking since I was three, building robots along the way, and turning curiosity into creativity. Join me as I share delicious recipes, fun experiments, behind-the-scenes content, and robotics updates.</p>
+      <p>Hi! I'm Adi. I've been cooking since I was three, building robots along the way, and turning curiosity into creativity. Join me as I share delicious recipes, fun experiments, behind-the-scenes adventures, and my dream of growing from a kid with a passion to serving unforgettable food.</p>
     </div>
   </div>
   <div class="hero-photo">
@@ -468,23 +468,23 @@
 
   <div class="project-list">
     <div class="project-card">
-      <div class="project-photo"><img src="./images/Robotics/Soilsampling.png" alt="Robotics project"></div>
+      <div class="project-photo"><img src="./Images/Robotics/Soilsampling.png" alt="Robotics project"></div>
       <div class="project-body">
         <span class="project-tag">First Lego League</span>
         <h3>Soil Sampling Robot</h3>
         <p>It has Arduino parts! From motors to sensors, the soil sampler has everything to be used in the field, and it's teaching me so much on my journey ~(˘▾˘~)</p>
-        <div class="problem-solved"><strong>Problem solved:</strong> In FLL, there's a challenge called INNOVATION. This year's theme was Arcteology — we had to solve a problem they faced. We built a soil sampler!</div>
-        <div class="code-block"><span class="cm">// a short snippet to see some code!</span><br>void setup() {<br>&nbsp;&nbsp;// Initialize sensors<br>&nbsp;&nbsp;display.init();<br>}</div>
+        <div class="problem-solved"><strong>Problem solved:</strong> In FLL, there's a challenge called INNOVATION. This year's theme was Arcteology — we had to solve a problem they faced. We built a soil sampling system and we have patent pending.</div>
+        <div class="code-block"><span class="cm">// a short snippet to see some code!</span><br>void setup() {<br>&nbsp;&nbsp;// Row 4: Lux + CTdisplay.setCursor(0,<br>&nbsp;&nbsp; 48);display.print(F("Lux "));<br>&nbsp;&nbsp;display.print(lux, 0);display.setCursor(70, 48);<br>&nbsp;&nbsp;display.print(F("CT "));<br>&nbsp;&nbsp;display.print(colorTemp, 0);display.println(F("K"));<br>&nbsp;&nbsp;display.display();delay(1000);<br>&nbsp;&nbsp;*/<br>}</div>
       </div>
     </div>
 
     <div class="project-card">
-      <div class="project-photo"><img src="./images/Robotics/meegle.png" alt="Robotics project"></div>
+      <div class="project-photo"><img src="./Images/Robotics/meegle.png" alt="Robotics project"></div>
       <div class="project-body">
         <span class="project-tag">Learning CAD</span>
         <h3>Meegle</h3>
         <p>While I was in Florida, my uncle and I loved to play the game Carcassonne! </p>
-        <div class="problem-solved"><strong>Problem solved:</strong> In the game you track your points on a board, but the piece would slide around. I made this piece with a magnet inside to keep it in place!</div>
+        <div class="problem-solved"><strong>Problem solved:</strong> In the game you track your points on a board, but the piece would slide around. I made this file with a magnet inside and made the board magnetic so this would not happen（＾o^ ） </div>
       </div>
     </div>
   </div>
@@ -495,7 +495,7 @@
   <div class="overlap-band">
     <span class="kicker">Featured</span>
     <h2>The Overlap Project</h2>
-    <p>Something that combines cooking and robotics directly — this is the centerpiece. It doesn't need to be complicated: a simple Arduino-based kitchen gadget with a devlog showing how it came together.</p>
+    <p>Something that combines cooking and robotics directly — this is the centerpiece. It doesn't need to be complicated: a simple Arduino-based kitchen gadget with a devlog showing how it came together can stand out more than a single polished build.</p>
     <div class="overlap-examples">
       <span class="overlap-chip">Pancake-flipping robot</span>
       <span class="overlap-chip">Automated ingredient sorter</span>
@@ -515,7 +515,7 @@
   <p class="section-intro">Posts as I build — in the kitchen and in robotics. Consistency over time matters more here than any single polished post.</p>
   <div class="blog-list">
     <div class="blog-row">
-      <div class="blog-thumb"><img src="./images/Aditya/Post3.png" alt="Devlog post"></div>
+      <div class="blog-thumb"><img src="./Images/Aditya/Post3.png" alt="Devlog post"></div>
       <div>
         <div class="blog-date">July 2026</div>
         <div class="blog-title">Working on +600 desserts</div>
@@ -523,7 +523,7 @@
       </div>
     </div>
     <div class="blog-row">
-      <div class="blog-thumb"><img src="./images/food/Post2.png" alt="Devlog post"></div>
+      <div class="blog-thumb"><img src="./Images/food/Post2.png" alt="Devlog post"></div>
       <div>
         <div class="blog-date">June 2026</div>
         <div class="blog-title">Learning in India</div>
@@ -531,7 +531,7 @@
       </div>
     </div>
     <div class="blog-row">
-      <div class="blog-thumb"><img src="./images/food/Post1.png" alt="Devlog post"></div>
+      <div class="blog-thumb"><img src="./Images/food/Post1.png" alt="Devlog post"></div>
       <div>
         <div class="blog-date">May 2026</div>
         <div class="blog-title">First place in cake competition</div>
@@ -591,16 +591,16 @@
   // ----- Growing Up: curved clothesline, big age cards, auto-swaying, with captions -----
   (function(){
     const AGES = [
-      { age: 1,  photo: './images/Aditya/1yearold.png', text: 'Mission: Find the snacks. Status: In progress.' },
-      { age: 3,  photo: './images/Aditya/3yearold.png', text: 'Expand your palette, expand your mind.' },
-      { age: 5,  photo: './images/Aditya/5yearold.png', text: 'My feet barely reached the counter, but I was already running the kitchen ᕙ(⇀‸↼‶)ᕗ' },
-      { age: 6,  photo: './images/Aditya/6yearold.png', text: 'Every great dish starts with knowing your ingredients. That means tasting them first!' },
-      { age: 7,  photo: './images/Aditya/7yearold.png', text: 'Stirring pots, learning masalas, and falling in love with homemade khaana' },
-      { age: 9,  photo: './images/Aditya/9yearold.png', text: 'Food adventures, traveling the world through flavors.' },
-      { age: 10, photo: './images/Aditya/10yearold.png', text: 'Playing with the heat of spices.' },
-      { age: 11, photo: './images/Aditya/11yearold.png', text: 'Sometimes bigger is better.' },
-      { age: 12, photo: './images/Aditya/12yearold.png', text: 'Some recipes take hours. The best memories are worth every minute.' },
-      { age: 13, photo: './images/Aditya/13yearold.png', text: 'Eye on the prize.' },
+      { age: 1,  photo: './Images/Aditya/1yearold.png', text: 'Mission: Find the snacks. Status: In progress.' },
+      { age: 3,  photo: './Images/Aditya/3yearold.png', text: 'Expand your palette, expand your mind.' },
+      { age: 5,  photo: './Images/Aditya/5yearold.png', text: 'My feet barely reached the counter, but I was already running the kitchen ᕙ(⇀‸↼‶)ᕗ' },
+      { age: 6,  photo: './Images/Aditya/6yearold.png', text: 'Every great dish starts with knowing your ingredients. That means tasting them first!' },
+      { age: 7,  photo: './Images/Aditya/7yearold.png', text: 'Stirring pots, learning masalas, and falling in love with homemade khaana' },
+      { age: 9,  photo: './Images/Aditya/9yearold.png', text: 'Food adventures, traveling the world through flavors.' },
+      { age: 10, photo: './Images/Aditya/10yearold.png', text: 'Playing with the heat of spices.' },
+      { age: 11, photo: './Images/Aditya/11yearold.png', text: 'Sometimes bigger is better.' },
+      { age: 12, photo: './Images/Aditya/12yearold.png', text: 'Some recipes take hours. The best memories are worth every minute.' },
+      { age: 13, photo: './Images/Aditya/13yearold.png', text: 'Eye on the prize.' },
     ];
 
     const scene = document.getElementById('ageLineScene');
@@ -746,13 +746,13 @@
         title: 'Graduation Celebration',
         subtitle: 'Click to see more',
         items: [
-          { type: 'photo', label: 'Indian "Hush Puppies"', img: './images/food/gradphoto.png',
+          { type: 'photo', label: 'Indian "Hush Puppies"', img: './images/Food/gradphoto.png',
             storyTitle: '[Photo caption]',
             story: '[What food you made, what the event was for, etc.]' },
-          { type: 'bubble', label: '+100 people!', img: './images/Aditya/GradK.png',
+          { type: 'bubble', label: '+100 people!', img: './Images/Aditya/GradK.png',
             storyTitle: 'Graduation Celebration 2025',
             story: '[What food you made, what the event was for, etc.]' },
-          { type: 'bubble', label: '8 ft snack board (¬‿¬)', img: './images/Aditya/GradS.png',
+          { type: 'bubble', label: '8 ft snack board (¬‿¬)', img: './Images/Aditya/GradS.png',
             storyTitle: 'Graduation Celebration 2025',
             story: '[What food you made, what the event was for, etc.]' }
         ]
@@ -761,13 +761,13 @@
         title: 'Arangetram',
         subtitle: 'Click to see more',
         items: [
-          { type: 'bubble', label: '+600 sweets!', img: './images/Aditya/Arangetram1.png',
+          { type: 'bubble', label: '+600 sweets!', img: './Images/Aditya/Arangetram1.png',
             storyTitle: '[Event 1 title]',
             story: '[What food you made, what the event was for, etc.]' },
-          { type: 'bubble', label: '200 chocolate strawberries (°□°)', img: './images/Aditya/Arangetram2.png',
+          { type: 'bubble', label: '200 chocolate strawberries (°□°)', img: './Images/Aditya/Arangetram2.png',
             storyTitle: '[Event 2 title]',
             story: '[What food you made, what the event was for, etc.]' },
-          { type: 'photo', label: 'Custom boxes ', img: './images/Aditya/Foodbox.png',
+          { type: 'photo', label: 'Custom boxes ', img: './Images/Aditya/Foodbox.png',
             storyTitle: 'Custom boxes :',
             story: '[What food you made, what the event was for, etc.]' }
         ]
